@@ -107,10 +107,6 @@ public:
     int MasternodeCollateralAmt() const { return nMasternodeCollateralAmt; }
     int MasternodeCollateralAmtNew() const { return nMasternodeCollateralAmtNew; }
 
-     //Treasury Related
-         std::string vTreasuryRewardAddress;
-     std::string GetTreasuryRewardAddressAtHeight(int height) const;
-     CScript GetTreasuryRewardScriptAtHeight(int height) const;
      // Min amount in order to stake
          CAmount StakeInput() const
     {

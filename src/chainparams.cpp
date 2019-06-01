@@ -106,7 +106,6 @@ public:
     CMainParams()
     {
         networkID = CBaseChainParams::MAIN;
-        vTreasuryRewardAddress = "";
         strNetworkID = "main";
 
         /**
@@ -223,18 +222,6 @@ public:
     }
 };
 
-std::string CChainParams::GetTreasuryRewardAddressAtHeight(int nHeight) const
-{
-    return vTreasuryRewardAddress;
-}
-
-CScript CChainParams::GetTreasuryRewardScriptAtHeight(int nHeight) const
-{
-    CBitcoinAddress address(GetTreasuryRewardAddressAtHeight(nHeight).c_str());
-    assert(address.IsValid());
-    CScript script = GetScriptForDestination(address.Get());
-    return script;
-}
 static CMainParams mainParams;
 
 /**
