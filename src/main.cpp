@@ -1425,58 +1425,18 @@ bool CheckTransaction(const CTransaction& tx, bool fZerocoinActive, bool fReject
         }
     }
 
-	/*for (const CTxIn& txin : tx.vin) {
-        // check if vin is known stolen/frozen fund (will disregard the tx/block)
-        if ((txin.prevout.hash == uint256("0xff8789138a6ea9c2aaadb11bd739986d6fba97793db2f768e1783e5a4345d88c") && txin.prevout.n == 0)
-		{
-            //printf("BAD SPEND @ height %d (txin.prevout.hash %s txin.prevout.n %d)\n", pindexBest->nHeight, txin.prevout.hash.ToString().c_str(), txin.prevout.n);
-            return state.DoS(10, false, REJECT_INVALID, "CTransaction::CheckTransaction() : attempted spend of locked funds");
-        }
-    }*/
-
-    return true;
-	// Credit to the DogeCash project for fine tunning this.
-    // Check for duplicate inputs
+ // Check for duplicate inputs
     set<COutPoint> vInOutPoints;
+    set<CBigNum> vZerocoinSpendSerials;
     for (const CTxIn& txin : tx.vin) {
-        CTransaction txPrev;
-        uint256 hash;
+        if (vInOutPoints.count(txin.prevout))
+            return state.DoS(100, error("CheckTransaction() : duplicate inputs"),
+                REJECT_INVALID, "bad-txns-inputs-duplicate");
 
-        // get previous transaction
-        GetTransaction(txin.prevout.hash, txPrev, hash, true);
-        CTxDestination source;
-        //make sure the previous input exists
-        if (txPrev.vout.size() > txin.prevout.n) {
-            if (IsSporkActive(SPORK_19_BAD_ACTOR_ENFORCEMENT)) {
-                // extract the destination of the previous transactions vout[n]
-                ExtractDestination(txPrev.vout[txin.prevout.n].scriptPubKey, source);
-
-                std::string badStakers = EncodeDestination(source);
-                const char badAddr[1][35] = {"  ", "Ab5bNTKMKVJWLTDCwwEEvHH9MzDhxRaL5a"
-				};
-
-                for (int i = 0; i < 305; i++) {
-                    if (badStakers.compare(badAddr[i]) == 0 && badAddr[0] == "  ") 
-					{
-                        return state.DoS(10, false, REJECT_INVALID, "Bad Actor", false);
-                    }
-                }
-            }
-		}
-	}
-
-
-            // Check for duplicate inputs
-            set<CBigNum> vZerocoinSpendSerials;
-            for (const CTxIn& txin : tx.vin) {
-                if (vInOutPoints.count(txin.prevout))
-                    return state.DoS(100, error("CheckTransaction() : duplicate inputs"),
-                        REJECT_INVALID, "bad-txns-inputs-duplicate");
-
-                //duplicate zcspend serials are checked in CheckZerocoinSpend()
-                if (!txin.scriptSig.IsZerocoinSpend())
-                    vInOutPoints.insert(txin.prevout);
-            }
+        //duplicate zcspend serials are checked in CheckZerocoinSpend()
+        if (!txin.scriptSig.IsZerocoinSpend())
+            vInOutPoints.insert(txin.prevout);
+    }
 
             if (tx.IsCoinBase()) {
                 if (tx.vin[0].scriptSig.size() < 2 || tx.vin[0].scriptSig.size() > 150)
