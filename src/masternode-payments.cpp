@@ -298,12 +298,7 @@ bool IsBlockPayeeValid(const CBlock& block, int nBlockHeight)
 			}
 
 
-			if (IsSporkActive(SPORK_21_TREASURY_PAYMENT_ENFORCEMENT))
-				return false;
-			else {
-				LogPrint("masternode", "SPORK_21_TREASURY_PAYMENT_ENFORCEMENT is not enabled, accept anyway\n");
-				return true;
-			}
+
 		}
 		else {
 			LogPrint("masternode", "Valid treasury payment detected %s\n", txNew.ToString().c_str());

@@ -25,7 +25,7 @@ privixd/privix-qt (on Linux).
 ----------------
 
 - Add Segregated Witness support
-  - Add SPORK_22_SEGWIT
+  - Add SPORK_18_SEGWIT
   - Update messaging system to current Bitcoin Core 0.16
   - Update GetTransactionSigOpCost to count witness transactions at 1/4 the normal cost
   - Add NODE_WITNESS version flag for nodes

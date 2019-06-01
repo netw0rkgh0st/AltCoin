@@ -118,7 +118,7 @@ CBlockTemplate* CreateNewBlock(const CScript& scriptPubKeyIn, CWallet* pwallet, 
     // -promiscuousmempoolflags is used.
     // TODO: replace this with a call to main to assess validity of a mempool
     // transaction (which in most cases can be a no-op).
-    bool fIncludeWitness = IsSporkActive(SPORK_22_SEGWIT_ACTIVATION);
+    bool fIncludeWitness = IsSporkActive(SPORK_18_SEGWIT_ACTIVATION);
 
     // Make sure to create the correct block version after zerocoin is enabled
     bool fZerocoinActive = chainActive.Height() >= Params().Zerocoin_StartHeight();
