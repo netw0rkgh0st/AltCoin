@@ -22,8 +22,6 @@ CAmount GetMasternodeCollateral()
 {
     if (IsSporkActive(SPORK_26_NEW_COLLATERAL)) {
         return Params().MasternodeCollateralAmtNew();
-    }else if (IsSporkActive(SPORK_26_NEW_COLLATERAL) && IsSporkActive(SPORK_27_NEW_COLLATERAL_2)) {
-        return Params().MasternodeCollateralAmtNewEnd();
     }else{
         return Params().MasternodeCollateralAmt();
     }    

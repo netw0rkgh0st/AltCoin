@@ -135,7 +135,6 @@ public:
         nMasternodeCountDrift = 20;
         nMasternodeCollateralAmt = 1000;
         nMasternodeCollateralAmtNew = 2000;
-        nMasternodeCollateralAmtNewEnd = 5000;
         nMinStakeInput = 5 * COIN;
         nModifierUpdateBlock = 1238400;
         nMaxMoneyOut = 21000000 * COIN;
