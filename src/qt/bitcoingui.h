@@ -31,7 +31,6 @@ class WalletFrame;
 class WalletModel;
 class MasternodeList;
 class ProposalList;
-class headerLabel;
 
 class CWallet;
 
