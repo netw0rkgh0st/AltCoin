@@ -578,18 +578,37 @@ void BitcoinGUI::createToolBars()
     if (walletFrame) {
         QToolBar* toolbar = new QToolBar(tr("Tabs toolbar"));
         toolbar->setObjectName("Main-Toolbar"); // Name for CSS addressing
-		toolbar->setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
+	    //toolbar->setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
+		toolbar->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
+		toolbar->setMinimumWidth(180);
+		toolbar->setMaximumWidth(180);		
+
+
+		  ///////////////////////////////////////////
+		 //These where already commented out below//
+		///////////////////////////////////////////
+
 		//    // Add some empty space at the top of the toolbars
 		//    QAction* spacer = new QAction(this);
 		//    spacer->setMinimumHeight(10);
 		//    toolbar->addAction(spacer);
 		//    toolbar->widgetForAction(spacer)->setObjectName("ToolbarSpacer");
 
-		QWidget *spacer = new QWidget(this);
-		spacer->setMinimumHeight(20);
-		spacer->setMaximumHeight(20);
-		//spacer->setSizePolicy(QSizePolicy::Fixed);
-		toolbar->addWidget(spacer);
+		
+
+		headerLabel* header = new headerLabel();
+		header->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
+		header->setPixmap(QPixmap(":/images/privix_logo_horizontal"));
+		header->setCursor(Qt::PointingHandCursor);
+		QObject::connect(header, SIGNAL(onClick()), this, SLOT(linkprivixClickedSlot()));
+
+		toolbar->addWidget(header);
+
+		//QWidget *spacer = new QWidget(this);
+		//spacer->setMinimumHeight(20);
+		//spacer->setMaximumHeight(20);
+		//spacer->setSizePolicy(QSizePolicy::Fixed); //This was already commented out
+		//toolbar->addWidget(spacer);
 
         toolbar->addAction(overviewAction);
         toolbar->addAction(sendCoinsAction);
