@@ -118,7 +118,7 @@ public:
         pchMessageStart[2] = 0x3e; // E
         pchMessageStart[3] = 0x88; // T-8
         vAlertPubKey = ParseHex("0435401a5693de702378a538ad939ea03b5e3b2826f68431ba840df5f418e3f3e8590ba4fb0c36097179bb55ffc4a4e065dc2ff87edb6f3ce4232a71d253ed7fff");
-        nDefaultPort = 2238;
+        nDefaultPort = 7788;
         bnProofOfWorkLimit = ~uint256(0) >> 20; // Privix starting difficulty is 1 / 2^12
         nMaxReorganizationDepth = 100;
         nEnforceBlockUpgradeMajority = 750;
@@ -202,16 +202,6 @@ public:
                           "8441436038339044149526344321901146575444541784240209246165157233507787077498171257724679629263863563732899121548"
                           "31438167899885040445364023527381951378636564391212010397122822120720357";
 
-        /*
-        nZerocoinLastOldParams = 99999999; // Updated to defer zerocoin v2 for further testing.
-
-        nMaxZerocoinSpendsPerTransaction = 7; // Assume about 20kb each
-        nMinZerocoinMintFee = 1 * CENT; //high fee required for zerocoin mints
-        nMintRequiredConfirmations = 20; //the maximum amount of confirmations until accumulated in 19
-        nRequiredAccumulation = 1;
-        nDefaultSecurityLevel = 100; //full security level for accumulators
-        nZerocoinHeaderVersion = 4; //Block headers must be this version once zerocoin is active
-		*/
         nBudgetFeeConfirmations = 6; // Number of confirmations for the finalization fee
 		
     }

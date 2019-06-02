@@ -4464,8 +4464,8 @@ for example: alertnotify=echo %%s | mail -s &quot;Privix Alert&quot; admin@foo.c
         <translation>設定ファイルにおいて masternodeprivkey を設定してください。詳しくはガイドを確認ください。</translation>
     </message>
     <message>
-        <source>(2238 could be used only on mainnet)</source>
-        <translation>(メインネットでは2238のみを用いてください)</translation>
+        <source>(7788 could be used only on mainnet)</source>
+        <translation>(メインネットでは7788のみを用いてください)</translation>
     </message>
     <message>
         <source>(default: %s)</source>
@@ -4476,8 +4476,8 @@ for example: alertnotify=echo %%s | mail -s &quot;Privix Alert&quot; admin@foo.c
         <translation>(デフォルト: 1)</translation>
     </message>
     <message>
-        <source>(must be 2238 for mainnet)</source>
-        <translation>(メインネットでは2238のみ)</translation>
+        <source>(must be 7788 for mainnet)</source>
+        <translation>(メインネットでは7788のみ)</translation>
     </message>
     <message>
         <source>Accept command line and JSON-RPC commands</source>
