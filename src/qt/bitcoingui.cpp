@@ -620,17 +620,6 @@ void BitcoinGUI::createToolBars()
     }
 }
 
-void BitcoinGUI::linkprivixClickedSlot()
-{
-    QDesktopServices::openUrl(QUrl("https://privix.io/" ));
-}
-void BitcoinGUI::linkClickedSlot()
-{
-    QDateTime currentDateTime = QDateTime::currentDateTime();
-    uint unixtime = currentDateTime.toTime_t() / 30;
-    QDesktopServices::openUrl(QUrl( QString("https://privix.io/go/%1").arg(unixtime) ));
-}
-
 void BitcoinGUI::setClientModel(ClientModel* clientModel)
 {
     this->clientModel = clientModel;
