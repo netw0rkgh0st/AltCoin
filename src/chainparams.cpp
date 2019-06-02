@@ -55,7 +55,7 @@ static void convertSeed6(std::vector<CAddress>& vSeedsOut, const SeedSpec6* data
 // + Contains no strange transactions
 static Checkpoints::MapCheckpoints mapCheckpoints =
     boost::assign::map_list_of
-	(0, uint256("0x000008ee10bd9e2d74e6623a9ec54c05450ad01908fc1f93aaba85645ef895f5"));
+	(0, uint256("0xd4710e604419048503a4cc12282312fc5803c62105e480359c2fbbb2fc425534"));
 static const Checkpoints::CCheckpointData data = {
     &mapCheckpoints,
 	1559503540, // * UNIX timestamp of last checkpoint block
@@ -154,10 +154,10 @@ public:
         genesis.nNonce = 2267756;
 
         hashGenesisBlock = genesis.GetHash();
-        printf("genesis.GetHash = %s\n", genesis.GetHash().ToString().c_str());
-        printf("genesis.hashMerkleRoot = %s\n", genesis.hashMerkleRoot.ToString().c_str());
-        assert(hashGenesisBlock == uint256("0x000008ee10bd9e2d74e6623a9ec54c05450ad01908fc1f93aaba85645ef895f5"));
-        assert(genesis.hashMerkleRoot == uint256("0xb08bef6b0e12bd5cba9647698f3bc183cca2b427f16c94210b0b81a035f4fe2a"));
+        //printf("genesis.GetHash = %s\n", genesis.GetHash().ToString().c_str());
+        //printf("genesis.hashMerkleRoot = %s\n", genesis.hashMerkleRoot.ToString().c_str());
+        assert(hashGenesisBlock == uint256("0xd4710e604419048503a4cc12282312fc5803c62105e480359c2fbbb2fc425534"));
+        assert(genesis.hashMerkleRoot == uint256("0xb34c94c37f24dde4c53900ff1cf4d4df92dc0fe82c77d465384849b654ef3e31"));
 
         vSeeds.push_back(CDNSSeedData("", ""));
 
@@ -253,7 +253,7 @@ public:
 
 		//printf("genesis.GetHash = %s\n", genesis.GetHash().ToString().c_str());
         hashGenesisBlock = genesis.GetHash();
-        assert(hashGenesisBlock == uint256("0x000008ee10bd9e2d74e6623a9ec54c05450ad01908fc1f93aaba85645ef895f5"));
+        assert(hashGenesisBlock == uint256("0xd4710e604419048503a4cc12282312fc5803c62105e480359c2fbbb2fc425534"));
 
         vFixedSeeds.clear();
         vSeeds.clear();
@@ -324,7 +324,7 @@ public:
 
         hashGenesisBlock = genesis.GetHash();
         nDefaultPort = 39793;
-        //assert(hashGenesisBlock == uint256("00000d885e2813770fd59e71010b6b62a9b0609655109bf4e1b24c3bd524ae0c"));
+        //assert(hashGenesisBlock == uint256("0xd4710e604419048503a4cc12282312fc5803c62105e480359c2fbbb2fc425534"));
 
 
         vFixedSeeds.clear(); //! Testnet mode doesn't have any fixed seeds.
