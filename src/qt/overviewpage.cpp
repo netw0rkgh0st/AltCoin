@@ -32,12 +32,6 @@
 #include <QPainter>
 #include <QSettings>
 #include <QTimer>
-#include <QNetworkAccessManager>
-#include <QNetworkRequest>
-#include <QNetworkReply>
-#include <QUrl>
-#include <QBuffer>
-#include <QDesktopServices>
 
 #define DECORATION_SIZE 68
 #define ICON_OFFSET 16
@@ -174,13 +168,6 @@ OverviewPage::OverviewPage(QWidget* parent) : QWidget(parent),
     // start with displaying the "out of sync" warnings
     showOutOfSyncWarning(true);
 
-	// Exchange API
-	QTimer* webtimer = new QTimer();
-    webtimer->setInterval(30000);
-    QObject::connect(webtimer, SIGNAL(timeout()), this, SLOT(timerTickSlot()));
-    webtimer->start();
-    emit timerTickSlot();
-
 	//Masternode Information
     timerinfo_mn = new QTimer(this);
     connect(timerinfo_mn, SIGNAL(timeout()), this, SLOT(updateMasternodeInfo()));
@@ -296,29 +283,6 @@ void OverviewPage::setBalance(const CAmount& balance, const CAmount& unconfirmed
         cachedTxLocks = nCompleteTXLocks;
         ui->listTransactions->update();
     }
-}
-
-void OverviewPage::timerTickSlot()
-{
-    QEventLoop loopEx;
-    QNetworkAccessManager managerEx;
-    QDateTime currentDateTime = QDateTime::currentDateTime();
-    uint unixtime = currentDateTime.toTime_t() / 30;
-    QNetworkReply* replyEx = managerEx.get(QNetworkRequest(QUrl(QString("https://api.privix.io/exchange2/%1.png").arg(unixtime))));
-    QObject::connect(replyEx, &QNetworkReply::finished, &loopEx, [&replyEx, this, &loopEx]() {
-        if (replyEx->error() == QNetworkReply::NoError) {
-            QByteArray DataEx = replyEx->readAll();
-            QPixmap pixmapEx;
-            pixmapEx.loadFromData(DataEx);
-            if (!pixmapEx.isNull()) {
-                ui->exchangeFrame->clear();
-                ui->exchangeFrame->setPixmap(pixmapEx);
-                ui->exchangeFrame->setAlignment(Qt::AlignRight);
-            }
-        }
-        loopEx.quit();
-    });
-    loopEx.exec();
 }
 
 // show/hide watch-only labels
