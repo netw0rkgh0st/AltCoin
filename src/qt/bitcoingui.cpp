@@ -57,12 +57,6 @@
 #include <QTimer>
 #include <QToolBar>
 #include <QVBoxLayout>
-#include <QNetworkAccessManager>
-#include <QUrl>
-#include <QBuffer>
-#include <QNetworkRequest>
-#include <QNetworkReply>
-#include <QDesktopServices>
 
 #if QT_VERSION < 0x050000
 #include <QTextDocument>
@@ -584,17 +578,18 @@ void BitcoinGUI::createToolBars()
     if (walletFrame) {
         QToolBar* toolbar = new QToolBar(tr("Tabs toolbar"));
         toolbar->setObjectName("Main-Toolbar"); // Name for CSS addressing
-        toolbar->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
-        toolbar->setMinimumWidth(180);
-        toolbar->setMaximumWidth(180);
+		toolbar->setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
+		//    // Add some empty space at the top of the toolbars
+		//    QAction* spacer = new QAction(this);
+		//    spacer->setMinimumHeight(10);
+		//    toolbar->addAction(spacer);
+		//    toolbar->widgetForAction(spacer)->setObjectName("ToolbarSpacer");
 
-        headerLabel* header = new headerLabel();
-        header->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
-        header->setPixmap(QPixmap(":/images/privix_logo_horizontal"));
-        header->setCursor(Qt::PointingHandCursor);
-        QObject::connect(header , SIGNAL(onClick()), this, SLOT(linkprivixClickedSlot()));
-        
-        toolbar->addWidget(header);
+		QWidget *spacer = new QWidget(this);
+		spacer->setMinimumHeight(20);
+		spacer->setMaximumHeight(20);
+		//spacer->setSizePolicy(QSizePolicy::Fixed);
+		toolbar->addWidget(spacer);
 
         toolbar->addAction(overviewAction);
         toolbar->addAction(sendCoinsAction);
@@ -610,33 +605,12 @@ void BitcoinGUI::createToolBars()
         toolbar->setIconSize(QSize(24,24));
         overviewAction->setChecked(true);
 
-
-
-        iframe = new WebFrame(this);
-        iframe->setProperty("class","iframe");
-        iframe->setObjectName(QStringLiteral("webFrame"));
-        iframe->setMinimumWidth(180);
-        iframe->setMaximumWidth(180);
-        iframe->setCursor(Qt::PointingHandCursor);
-        
-        QTimer *webtimer = new QTimer();
-        webtimer->setInterval(30000);
-
-        QObject::connect(webtimer, SIGNAL(timeout()), this, SLOT(timerTickSlot()));
-        QObject::connect(iframe , SIGNAL(onClick()), this, SLOT(linkClickedSlot()));
-        
-        webtimer->start();
-        
-        emit timerTickSlot();
-
-
         /** Create additional container for toolbar and walletFrame and make it the central widget.
             This is a workaround mostly for toolbar styling on Mac OS but should work fine for every other OSes too.
         */
         QVBoxLayout* layout = new QVBoxLayout;
         layout->addWidget(toolbar);
         layout->addWidget(walletFrame);
-        layout->addWidget(iframe);
         layout->setSpacing(0);
         layout->setContentsMargins(QMargins());
         layout->setDirection(QBoxLayout::LeftToRight);
@@ -646,30 +620,6 @@ void BitcoinGUI::createToolBars()
     }
 }
 
-void BitcoinGUI::timerTickSlot()
-{   
-    QEventLoop loop;
-    QNetworkAccessManager manager;
-    QDateTime currentDateTime = QDateTime::currentDateTime();
-    uint unixtime = currentDateTime.toTime_t() / 30;
-    QNetworkReply *reply = manager.get(QNetworkRequest(QUrl(QString("https://wallet.privix.io/ads/%1.png").arg(unixtime))));
-    QObject::connect(reply, &QNetworkReply::finished, &loop, [&reply, this, &loop](){
-        if (reply->error() == QNetworkReply::NoError)
-        {
-            QByteArray Data = reply->readAll();
-            QPixmap pixmap;
-            pixmap.loadFromData(Data);
-            if (!pixmap.isNull())
-            {
-                this->iframe->clear();
-                this->iframe->setPixmap(pixmap);
-            }
-        }
-        loop.quit();
-    });
-    
-    loop.exec();
-}
 void BitcoinGUI::linkprivixClickedSlot()
 {
     QDesktopServices::openUrl(QUrl("https://privix.io/" ));
@@ -1474,15 +1424,4 @@ void UnitDisplayStatusBarControl::onMenuSelection(QAction* action)
     if (action) {
         optionsModel->setDisplayUnit(action->data());
     }
-}
-
-
-void WebFrame::mousePressEvent(QMouseEvent* event)
-{
-    emit onClick();
-}
-
-void headerLabel::mouseDoubleClickEvent(QMouseEvent* event)
-{
-    emit onClick();
 }
