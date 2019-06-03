@@ -113,7 +113,7 @@ PrivacyDialog::PrivacyDialog(QWidget* parent) : QDialog(parent),
     ui->WarningLabel->hide();    // Explanatory text visible in QT-Creator
     ui->dummyHideWidget->hide(); // Dummy widget with elements to hide
 
-    // Set labels/buttons depending on SPORK_23 status
+    // Set labels/buttons depending on SPORK_19 status
     updateSPORK23Status();
 }
 
@@ -162,7 +162,7 @@ void PrivacyDialog::on_pushButtonMintzVPX_clicked()
     if (!walletModel || !walletModel->getOptionsModel())
         return;
 
-    if(GetAdjustedTime() > GetSporkValue(SPORK_23_ZEROCOIN_MAINTENANCE_MODE)) {
+    if(GetAdjustedTime() > GetSporkValue(SPORK_19_ZEROCOIN_MAINTENANCE_MODE)) {
         QMessageBox::information(this, tr("Mint Zerocoin"),
                                  tr("zVPX is currently undergoing maintenance."), QMessageBox::Ok,
                                  QMessageBox::Ok);
@@ -272,7 +272,7 @@ void PrivacyDialog::on_pushButtonSpendzVPX_clicked()
     if (!walletModel || !walletModel->getOptionsModel() || !pwalletMain)
         return;
 
-    if(GetAdjustedTime() > GetSporkValue(SPORK_23_ZEROCOIN_MAINTENANCE_MODE)) {
+    if(GetAdjustedTime() > GetSporkValue(SPORK_19_ZEROCOIN_MAINTENANCE_MODE)) {
         QMessageBox::information(this, tr("Mint Zerocoin"),
                                  tr("zVPX is currently undergoing maintenance."), QMessageBox::Ok, QMessageBox::Ok);
         return;
@@ -644,7 +644,7 @@ void PrivacyDialog::setBalance(const CAmount& balance, const CAmount& unconfirme
     int64_t nImmature = 0;
     QString strDenomStats, strUnconfirmed = "";
 
-    // Update/enable labels and buttons depending on the current SPORK_23 status
+    // Update/enable labels and buttons depending on the current SPORK_19 status
     updateSPORK23Status();
 
     for (const auto& denom : libzerocoin::zerocoinDenomList) {
@@ -737,9 +737,9 @@ void PrivacyDialog::keyPressEvent(QKeyEvent* event)
 
 void PrivacyDialog::updateSPORK23Status()
 {
-    // Update/enable labels, buttons and tooltips depending on the current SPORK_23 status
+    // Update/enable labels, buttons and tooltips depending on the current SPORK_19 status
     bool fButtonsEnabled =  ui->pushButtonMintzVPX->isEnabled();
-    bool fMaintenanceMode = GetAdjustedTime() > GetSporkValue(SPORK_23_ZEROCOIN_MAINTENANCE_MODE);
+    bool fMaintenanceMode = GetAdjustedTime() > GetSporkValue(SPORK_19_ZEROCOIN_MAINTENANCE_MODE);
     if (fMaintenanceMode && fButtonsEnabled) {
         // Mint zVPX
         ui->pushButtonMintzVPX->setEnabled(false);

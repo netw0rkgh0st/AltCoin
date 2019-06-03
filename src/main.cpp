@@ -1521,7 +1521,7 @@ bool CheckTransaction(const CTransaction& tx, bool fZerocoinActive, bool fReject
                 *pfMissingInputs = false;
 
             //Temporarily disable zerocoin for maintenance
-            if (GetAdjustedTime() > GetSporkValue(SPORK_23_ZEROCOIN_MAINTENANCE_MODE) && tx.ContainsZerocoins())
+            if (GetAdjustedTime() > GetSporkValue(SPORK_19_ZEROCOIN_MAINTENANCE_MODE) && tx.ContainsZerocoins())
                 return state.DoS(10, error("AcceptToMemoryPool : Zerocoin transactions are temporarily disabled for maintenance"), REJECT_INVALID, "bad-tx");
 
             if (!CheckTransaction(tx, chainActive.Height() >= Params().Zerocoin_StartHeight(), true, state, GetSporkValue(SPORK_18_SEGWIT_ACTIVATION) < chainActive.Tip()->nTime)) {
@@ -3064,7 +3064,7 @@ bool CheckTransaction(const CTransaction& tx, bool fZerocoinActive, bool fReject
 
 #if 0
         //Temporarily disable zerocoin transactions for maintenance
-        if (block.nTime > GetSporkValue(SPORK_23_ZEROCOIN_MAINTENANCE_MODE) && !IsInitialBlockDownload() && tx.ContainsZerocoins()) {
+        if (block.nTime > GetSporkValue(SPORK_19_ZEROCOIN_MAINTENANCE_MODE) && !IsInitialBlockDownload() && tx.ContainsZerocoins()) {
             return state.DoS(100, error("ConnectBlock() : zerocoin transactions are currently in maintenance mode"));
         }
         if (tx.IsZerocoinSpend()) {
@@ -4194,7 +4194,7 @@ bool CheckTransaction(const CTransaction& tx, bool fZerocoinActive, bool fReject
             if (block.IsProofOfStake()) {
                 int commitpos = GetWitnessCommitmentIndex(block);
                 if (commitpos >= 0) {
-                    if (IsSporkActive(SPORK_25_SEGWIT_ON_COINBASE)) {
+                    if (IsSporkActive(SPORK_21_SEGWIT_ON_COINBASE)) {
                         if (block.vtx[0].vout.size() != 2)
                             return state.DoS(100, error("CheckBlock() : coinbase output has wrong size for proof-of-stake block"));
                         if (!block.vtx[0].vout[1].scriptPubKey.IsUnspendable())
@@ -4541,7 +4541,7 @@ bool CheckTransaction(const CTransaction& tx, bool fZerocoinActive, bool fReject
             if (GetSporkValue(SPORK_18_SEGWIT_ACTIVATION) < pindexPrev->nTime) {
                 int commitpos = GetWitnessCommitmentIndex(block);
                 if (commitpos != -1) {
-                    if (!IsSporkActive(SPORK_25_SEGWIT_ON_COINBASE)) {
+                    if (!IsSporkActive(SPORK_21_SEGWIT_ON_COINBASE)) {
                         if (fDebug) {
                             LogPrintf("CheckBlock() : staking-on-segwit is not enabled.\n");
                         }
@@ -6035,7 +6035,7 @@ bool CheckTransaction(const CTransaction& tx, bool fZerocoinActive, bool fReject
 
                 // Privix: We use certain sporks during IBD, so check to see if they are
                 // available. If not, ask the first peer connected for them.
-                bool fMissingSporks = !pSporkDB->SporkExists(SPORK_23_ZEROCOIN_MAINTENANCE_MODE);
+                bool fMissingSporks = !pSporkDB->SporkExists(SPORK_19_ZEROCOIN_MAINTENANCE_MODE);
 
                 if (fMissingSporks || !fRequestedSporksIDB) {
                     LogPrintf("asking peer for sporks\n");

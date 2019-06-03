@@ -401,7 +401,7 @@ void OverviewPage::updateMasternodeInfo()
 		double BlockReward = GetBlockValue(chainActive.Height());
         double roi1 = (0.90 * BlockReward * BlockCount24h) / mn1 / COIN;
 
-    if (IsSporkActive(SPORK_26_NEW_COLLATERAL)) {
+    if (IsSporkActive(SPORK_22_NEW_COLLATERAL)) {
             CAmount tNodesSumm = mn1 * Params().MasternodeCollateralAmtNew();
             CAmount tMoneySupply = chainActive.Tip()->nMoneySupply;
             double tLocked = tMoneySupply > 0 ? 100 * static_cast<double>(tNodesSumm) / static_cast<double>(tMoneySupply / COIN) : 0;
@@ -423,7 +423,7 @@ void OverviewPage::updateMasternodeInfo()
     }
 
     // Update Collateral Info
-  if (IsSporkActive(SPORK_26_NEW_COLLATERAL)) {
+  if (IsSporkActive(SPORK_22_NEW_COLLATERAL)) {
         ui->label_lcolat->setText("2000"); 
 	}else{
 		ui->label_lcolat->setText("1000");

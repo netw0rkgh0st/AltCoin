@@ -20,7 +20,7 @@ std::map<int64_t, uint256> mapCacheBlockHashes;
 
 CAmount GetMasternodeCollateral()
 {
-    if (IsSporkActive(SPORK_26_NEW_COLLATERAL)) {
+    if (IsSporkActive(SPORK_22_NEW_COLLATERAL)) {
         return Params().MasternodeCollateralAmtNew();
     }else{
         return Params().MasternodeCollateralAmt();
