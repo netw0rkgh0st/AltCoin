@@ -184,12 +184,11 @@ public:
 
         nPoolMaxTransactions = 3;
 
-        nEnforceNewSporkKey = 1559503540; //!> Sporks signed after 04/15/2019 @ 12:00am (UTC) must use the new spork key
-        nRejectOldSporkKey = 1559503540;  //!> Fully reject old spork key after 04/20/2019 @ 12:00am (UTC)
+        nEnforceNewSporkKey = 1559606174; //06/03/2019 @ 11:56pm (UTC)
+        nRejectOldSporkKey = 1559503540; //06/02/2019 @ 7:25pm (UTC)
 
-        //strSporkKey = "0469C3EA8B850A960FE799FAD34B34ED88037FCCBB9DA1B03472B0B3A23FDF16B0D9DC67AF8414423FC420286CE4319993976A6DCA09544BD739CAB6FDF777C662";
-        strSporkKey = "0239efda1c4227d678db60478f4a00bd2b90210805fe3faa91f8edec9f6a545dd1";
-        strSporkKeyOld = "0469C3EA8B850A960FE799FAD34B34ED88037FCCBB9DA1B03472B0B3A23FDF16B0D9DC67AF8414423FC420286CE4319993976A6DCA09544BD739CAB6FDF777C662";
+		strSporkKey = "033acc705df8ef0b1fcdc161fa77ff9580547a6123662f583a739dd9f38ab952ea";
+        strSporkKeyOld = "03bec8e31a75bd7dc36b28b5eb498e64483bfaa556fcafde1ae89a3c6b07482047";
         strObfuscationPoolDummyAddress = "Ab5bNTKMKVJWLTDCwwEEvHH9MzDhxRaL5a";
         nStartMasternodePayments = 1559503540;
 
