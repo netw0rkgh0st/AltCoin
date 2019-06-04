@@ -77,7 +77,7 @@ public:
 
 	/** Maturity Related Items */
     int COINBASE_MATURITY() const { return StakeMaturity; }
-    int StakeMaturity(int nHeight) const { return nStakeMaturity; }
+    unsigned int StakeMaturity(int nHeight) const { return nStakeMaturity; }
     int POS_MATURITY() const { return nPosMaturity; }
     int POW_MATURITY() const { return nPowMaturity; }
 
