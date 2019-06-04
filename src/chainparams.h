@@ -77,7 +77,8 @@ public:
     int64_t Interval() const { return nTargetTimespan / nTargetSpacing; }
 
 	/** Maturity Related Items */
-    int COINBASE_MATURITY(int nHeight) const {if (nHeight <= nLastPOWBlock) return nPowMaturity; else return nMaturity;}
+    //int COINBASE_MATURITY(int nHeight) const {if (nHeight <= nLastPOWBlock) return nPowMaturity; else return nMaturity;}
+    int COINBASE_MATURITY() const { nMaturity; }
     unsigned int StakeMaturity(int nHeight) const { return nStakeMaturity; }
 
     CAmount MaxMoneyOut() const { return nMaxMoneyOut; }
