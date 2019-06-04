@@ -103,13 +103,6 @@ unsigned int StakeMinAgev2()
     return nStakeMinAge;
 }
 
-int COINBASE_MATURITYv2()
-{
-	if (chainActive.Height() >= Params().LAST_POW_BLOCK())
-		return Params().POW_MATURITY();
-	return COINBASE_MATURITY;
-}
-
 int64_t nReserveBalance = 0;
 
 /** Fees smaller than this (in uvpx) are considered zero fee (for relaying and mining)
