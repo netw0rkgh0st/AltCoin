@@ -2468,7 +2468,7 @@ bool CheckTransaction(const CTransaction& tx, bool fZerocoinActive, bool fReject
 
                     // If prev is coinbase, check that it's matured
                     if (coins->IsCoinBase() || coins->IsCoinStake()) {
-                        if (nSpendHeight - coins->nHeight < Params().COINBASE_MATURITY())
+                        if (nSpendHeight - coins->nHeight < Params().COINBASE_MATURITY(int nHeight))
                             return state.Invalid(
                                 error("CheckInputs() : tried to spend coinbase at depth %d, coinstake=%d", nSpendHeight - coins->nHeight, coins->IsCoinStake()),
                                 REJECT_INVALID, "bad-txns-premature-spend-of-coinbase");
