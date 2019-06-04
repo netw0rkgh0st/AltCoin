@@ -78,7 +78,7 @@ public:
 
 	/** Maturity Related Items */
     int COINBASE_MATURITY(int nHeight) const {if (nHeight <= nLastPOWBlock) return nPowMaturity; else return nMaturity;}
-    unsigned int StakeMaturity(int nHeight) const { return nStakeMaturity; }
+    int StakeMaturity(int nHeight) const { return nStakeMaturity; }
 
     CAmount MaxMoneyOut() const { return nMaxMoneyOut; }
     /** The masternode count that we will allow the see-saw reward payments to be off by */
