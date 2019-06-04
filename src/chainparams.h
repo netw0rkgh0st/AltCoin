@@ -155,7 +155,6 @@ protected:
     int nMasternodeCollateralAmt;
     int nMasternodeCollateralAmtNew;
     int nMaturity;
-	int nPowMaturity;
     unsigned int nStakeMaturity;
     int nModifierUpdateBlock;
     CAmount nMinStakeInput;
