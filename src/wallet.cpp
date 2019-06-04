@@ -2101,10 +2101,8 @@ bool CWallet::SelectStakeCoins(std::set<std::pair<const CWalletTx*, unsigned int
             continue;
 
         //check that it is matured
-        if (chainActive.Height() <= Params().LAST_POW_BLOCK()) out.nDepth < (out.tx->IsCoinStake() ? Params().COINBASE_MATURITY() : 10))
+        if (out.nDepth < (out.tx->IsCoinStake() ? PowPhase : 10))
             continue;
-		if (chainActive.Height() >= Params().LAST_POW_BLOCK()) out.nDepth < (out.tx->IsCoinStake() ? Params().POW_MATURITY() : 10))
-		continue;
 
         //add to our stake set
         setCoins.insert(make_pair(out.tx, out.i));
@@ -4093,11 +4091,8 @@ void CWallet::AutoCombineDust()
             if (!out.fSpendable)
                 continue;
             //no coins should get this far if they dont have proper maturity, this is double checking
-            if (chainActive.Height() <= Params().LAST_POW_BLOCK()out.tx->IsCoinStake() && out.tx->GetDepthInMainChain() < Params()COINBASE_MATURITY() + 1)
+            if (out.tx->IsCoinStake() && out.tx->GetDepthInMainChain() < PowPhase + 1)
                 continue;
-			//no coins should get this far if they dont have proper maturity, this is double checking
-			if (chainActive.Height() >= Params().LAST_POW_BLOCK()out.tx->IsCoinStake() && out.tx->GetDepthInMainChain() < Params()POW_MATURITY() + 1)
-				continue;
 
             COutPoint outpt(out.tx->GetHash(), out.i);
             coinControl->Select(outpt);
@@ -4374,12 +4369,9 @@ int CMerkleTx::GetDepthInMainChain(const CBlockIndex*& pindexRet, bool enableIX)
 int CMerkleTx::GetBlocksToMaturity() const
 {
     LOCK(cs_main);
-	if (!(IsCoinBase() || IsCoinStake())) 
-		return 0;
-	if (chainActive.Height() <= Params().LAST_POW_BLOCK()) 
-		return max(0, (Params().COINBASE_MATURITY + 1) - GetDepthInMainChain());
-	if (chainActive.Height() >= Params().LAST_POW_BLOCK())
-		return max(0, (Params().POW_MATURITY + 1) - GetDepthInMainChain());	
+    if (!(IsCoinBase() || IsCoinStake()))
+        return 0;
+    return max(0, (PowPhase + 1) - GetDepthInMainChain());
 }
 
 
