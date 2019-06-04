@@ -13,7 +13,6 @@
 #include "primitives/block.h"
 #include "protocol.h"
 #include "uint256.h"
-#include "main.h"
 
 #include "libzerocoin/Params.h"
 #include <vector>
@@ -79,7 +78,7 @@ public:
 	//Maturity Related Items
     int COINBASE_MATURITY() const
     {
-        if (chainActive.Height() <= nLastPOWBlock)
+        if (chainActive.Height <= nLastPOWBlock)
 			return nPoWMaturity; 
 		else
 			return nMaturity;
