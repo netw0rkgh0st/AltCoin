@@ -27,14 +27,14 @@
 
 #include "denomination_functions.h"
 #include "libzerocoin/Denominations.h"
-#include "primitives/deterministicmint.h"
 #include "zvpxwallet.h"
+#include "primitives/deterministicmint.h"
 #include <assert.h>
 
 #include <boost/algorithm/string/replace.hpp>
-#include <boost/date_time/posix_time/posix_time.hpp>
-#include <boost/filesystem/operations.hpp>
 #include <boost/thread.hpp>
+#include <boost/filesystem/operations.hpp>
+#include <boost/date_time/posix_time/posix_time.hpp>
 
 using namespace std;
 
@@ -513,7 +513,7 @@ bool CWallet::GetVinAndKeysFromOutput(COutput out, CTxIn& txinRet, CPubKey& pubK
     CTxDestination address;
     ExtractDestination(pubScript, address);
 
-    CKeyID* keyID = boost::get<CKeyID>(&address);
+    CKeyID *keyID = boost::get<CKeyID>(&address);
     if (!keyID) {
         LogPrintf("CWallet::GetVinAndKeysFromOutput -- Address does not refer to a key\n");
         return false;
@@ -1179,7 +1179,7 @@ CAmount CWalletTx::GetUnlockedCredit() const
     return nCredit;
 }
 
-// Return sum of unlocked coins
+    // Return sum of unlocked coins
 CAmount CWalletTx::GetLockedCredit() const
 {
     if (pwallet == 0)
@@ -2097,20 +2097,20 @@ bool CWallet::SelectStakeCoins(std::set<std::pair<const CWalletTx*, unsigned int
         }
 
         //check for min age
-        if (GetAdjustedTime() - nTxTime < StakeMinAgev2()) {       
+        if (GetAdjustedTime() - nTxTime < StakeMinAgev2())
             continue;
+
         //check that it is matured
         if (chainActive.Height() <= Params().LAST_POW_BLOCK()) out.nDepth < (out.tx->IsCoinStake() ? Params().COINBASE_MATURITY() : 10))
-                continue;
-        }else if (chainActive.Height() >= Params().LAST_POW_BLOCK()) out.nDepth < (out.tx->IsCoinStake() ? Params().POW_MATURITY() : 10)){
-                continue;
+            continue;
+		if (chainActive.Height() >= Params().LAST_POW_BLOCK()) out.nDepth < (out.tx->IsCoinStake() ? Params().POW_MATURITY() : 10))
+		continue;
 
-                //add to our stake set
-                setCoins.insert(make_pair(out.tx, out.i));
-                nAmountSelected += out.tx->vout[out.i].nValue;
-         }
-        return true;
+        //add to our stake set
+        setCoins.insert(make_pair(out.tx, out.i));
+        nAmountSelected += out.tx->vout[out.i].nValue;
     }
+    return true;
 }
 
 bool CWallet::MintableCoins()
@@ -2280,7 +2280,7 @@ bool CWallet::SelectCoins(const CAmount& nTargetValue, set<pair<const CWalletTx*
             BOOST_FOREACH (const COutput& out, vCoins) {
                 if (out.tx->vout[out.i].nValue == v                                               //make sure it's the denom we're looking for
                     && nValueRet + out.tx->vout[out.i].nValue < nTargetValue + (0.1 * COIN) + 100 //round the amount up to .1 VPX over
-                ) {
+                    ) {
                     CTxIn vin = CTxIn(out.tx->GetHash(), out.i);
                     int rounds = GetInputObfuscationRounds(vin);
                     // make sure it's actually anonymized
@@ -2811,11 +2811,13 @@ bool CWallet::CreateTransaction(const vector<pair<CScript, CAmount> >& vecSend,
                 // Sign
                 int nIn = 0;
                 CTransaction txNewConst(txNew);
-                BOOST_FOREACH (const PAIRTYPE(const CWalletTx*, unsigned int) & coin, setCoins) {
+                BOOST_FOREACH(const PAIRTYPE(const CWalletTx*,unsigned int)& coin, setCoins)
+                {
                     const CScript& scriptPubKey = coin.first->vout[coin.second].scriptPubKey;
                     SignatureData sigdata;
 
-                    if (!ProduceSignature(TransactionSignatureCreator(this, &txNewConst, nIn, coin.first->vout[coin.second].nValue, SIGHASH_ALL), scriptPubKey, sigdata)) {
+                    if (!ProduceSignature(TransactionSignatureCreator(this, &txNewConst, nIn, coin.first->vout[coin.second].nValue, SIGHASH_ALL), scriptPubKey, sigdata))
+                    {
                         strFailReason = _("Signing transaction failed");
                         return false;
                     } else {
@@ -3115,13 +3117,13 @@ bool CWallet::CommitTransaction(CWalletTx& wtxNew, CReserveKey& reservekey, std:
     return true;
 }
 
-bool CWallet::AddAccountingEntry(const CAccountingEntry& acentry, CWalletDB& pwalletdb)
+bool CWallet::AddAccountingEntry(const CAccountingEntry& acentry, CWalletDB & pwalletdb)
 {
     if (!pwalletdb.WriteAccountingEntry_Backend(acentry))
         return false;
 
     laccentries.push_back(acentry);
-    CAccountingEntry& entry = laccentries.back();
+    CAccountingEntry & entry = laccentries.back();
     wtxOrdered.insert(make_pair(entry.nOrderPos, TxPair((CWalletTx*)0, &entry)));
 
     return true;
@@ -3822,10 +3824,8 @@ public:
         }
     }
 
-    template <typename X>
-    void operator()(const X& none)
-    {
-    }
+    template<typename X>
+    void operator()(const X &none) {}
 };
 
 void CWallet::GetKeyBirthTimes(std::map<CKeyID, int64_t>& mapKeyBirth) const
@@ -3970,7 +3970,7 @@ void CWallet::AutoZeromint()
     if (GetAdjustedTime() > GetSporkValue(SPORK_19_ZEROCOIN_MAINTENANCE_MODE)) return;
 
     // Wait until blockchain + masternodes are fully synced and wallet is unlocked.
-    if (!masternodeSync.IsSynced() || IsLocked()) {
+    if (!masternodeSync.IsSynced() || IsLocked()){
         // Re-adjust startup time in case syncing needs a long time.
         nStartupTime = GetAdjustedTime();
         return;
@@ -3978,19 +3978,19 @@ void CWallet::AutoZeromint()
 
     // After sync wait even more to reduce load when wallet was just started
     int64_t nWaitTime = GetAdjustedTime() - nStartupTime;
-    if (nWaitTime < AUTOMINT_DELAY) {
+    if (nWaitTime < AUTOMINT_DELAY){
         LogPrint("zero", "CWallet::AutoZeromint(): time since sync-completion or last Automint (%ld sec) < default waiting time (%ld sec). Waiting again...\n", nWaitTime, AUTOMINT_DELAY);
         return;
     }
 
     CAmount nZerocoinBalance = GetZerocoinBalance(false); //false includes both pending and mature zerocoins. Need total balance for this so nothing is overminted.
-    CAmount nBalance = GetUnlockedCoins();                // We only consider unlocked coins, this also excludes masternode-vins
-                                                          // from being accidentally minted
+    CAmount nBalance = GetUnlockedCoins(); // We only consider unlocked coins, this also excludes masternode-vins
+                                           // from being accidentally minted
     CAmount nMintAmount = 0;
     CAmount nToMintAmount = 0;
 
     // zVPX are integers > 0, so we can't mint 10% of 9 VPX
-    if (nBalance < 10) {
+    if (nBalance < 10){
         LogPrint("zero", "CWallet::AutoZeromint(): available balance (%ld) too small for minting zVPX\n", nBalance);
         return;
     }
@@ -3999,9 +3999,9 @@ void CWallet::AutoZeromint()
     double dPercentage = 100 * (double)nZerocoinBalance / (double)(nZerocoinBalance + nBalance);
 
     // Check if minting is actually needed
-    if (dPercentage >= nZeromintPercentage) {
+    if(dPercentage >= nZeromintPercentage){
         LogPrint("zero", "CWallet::AutoZeromint() @block %ld: percentage of existing zVPX (%lf%%) already >= configured percentage (%d%%). No minting needed...\n",
-            chainActive.Tip()->nHeight, dPercentage, nZeromintPercentage);
+                  chainActive.Tip()->nHeight, dPercentage, nZeromintPercentage);
         return;
     }
 
@@ -4016,42 +4016,42 @@ void CWallet::AutoZeromint()
     // possible denominations to avoid having 5000 denominations only.
     // If a preferred denomination is used (means nPreferredDenom != 0) do nothing until we have enough VPX to mint this denomination
 
-    if (nPreferredDenom > 0) {
+    if (nPreferredDenom > 0){
         if (nToMintAmount >= nPreferredDenom)
-            nToMintAmount = nPreferredDenom; // Enough coins => mint preferred denomination
+            nToMintAmount = nPreferredDenom;  // Enough coins => mint preferred denomination
         else
-            nToMintAmount = 0; // Not enough coins => do nothing and wait for more coins
+            nToMintAmount = 0;                // Not enough coins => do nothing and wait for more coins
     }
 
-    if (nToMintAmount >= ZQ_6666) {
+    if (nToMintAmount >= ZQ_6666){
         nMintAmount = ZQ_6666;
-    } else if (nToMintAmount >= libzerocoin::CoinDenomination::ZQ_FIVE_THOUSAND) {
+    } else if (nToMintAmount >= libzerocoin::CoinDenomination::ZQ_FIVE_THOUSAND){
         nMintAmount = libzerocoin::CoinDenomination::ZQ_FIVE_THOUSAND;
-    } else if (nToMintAmount >= libzerocoin::CoinDenomination::ZQ_ONE_THOUSAND) {
+    } else if (nToMintAmount >= libzerocoin::CoinDenomination::ZQ_ONE_THOUSAND){
         nMintAmount = libzerocoin::CoinDenomination::ZQ_ONE_THOUSAND;
-    } else if (nToMintAmount >= libzerocoin::CoinDenomination::ZQ_FIVE_HUNDRED) {
+    } else if (nToMintAmount >= libzerocoin::CoinDenomination::ZQ_FIVE_HUNDRED){
         nMintAmount = libzerocoin::CoinDenomination::ZQ_FIVE_HUNDRED;
-    } else if (nToMintAmount >= libzerocoin::CoinDenomination::ZQ_ONE_HUNDRED) {
+    } else if (nToMintAmount >= libzerocoin::CoinDenomination::ZQ_ONE_HUNDRED){
         nMintAmount = libzerocoin::CoinDenomination::ZQ_ONE_HUNDRED;
-    } else if (nToMintAmount >= libzerocoin::CoinDenomination::ZQ_FIFTY) {
+    } else if (nToMintAmount >= libzerocoin::CoinDenomination::ZQ_FIFTY){
         nMintAmount = libzerocoin::CoinDenomination::ZQ_FIFTY;
-    } else if (nToMintAmount >= libzerocoin::CoinDenomination::ZQ_TEN) {
+    } else if (nToMintAmount >= libzerocoin::CoinDenomination::ZQ_TEN){
         nMintAmount = libzerocoin::CoinDenomination::ZQ_TEN;
-    } else if (nToMintAmount >= libzerocoin::CoinDenomination::ZQ_FIVE) {
+    } else if (nToMintAmount >= libzerocoin::CoinDenomination::ZQ_FIVE){
         nMintAmount = libzerocoin::CoinDenomination::ZQ_FIVE;
-    } else if (nToMintAmount >= libzerocoin::CoinDenomination::ZQ_ONE) {
+    } else if (nToMintAmount >= libzerocoin::CoinDenomination::ZQ_ONE){
         nMintAmount = libzerocoin::CoinDenomination::ZQ_ONE;
     } else {
         nMintAmount = 0;
     }
 
-    if (nMintAmount > 0) {
-        CWalletTx wtx;
+    if (nMintAmount > 0){
+    CWalletTx wtx;
         vector<CDeterministicMint> vDMints;
-        string strError = pwalletMain->MintZerocoin(nMintAmount * COIN, wtx, vDMints);
+        string strError = pwalletMain->MintZerocoin(nMintAmount*COIN, wtx, vDMints);
 
         // Return if something went wrong during minting
-        if (strError != "") {
+        if (strError != ""){
             LogPrintf("CWallet::AutoZeromint(): auto minting failed with error: %s\n", strError);
             return;
         }
@@ -4059,10 +4059,11 @@ void CWallet::AutoZeromint()
         nBalance = GetUnlockedCoins();
         dPercentage = 100 * (double)nZerocoinBalance / (double)(nZerocoinBalance + nBalance);
         LogPrintf("CWallet::AutoZeromint() @ block %ld: successfully minted %ld zVPX. Current percentage of zVPX: %lf%%\n",
-            chainActive.Tip()->nHeight, nMintAmount, dPercentage);
+                  chainActive.Tip()->nHeight, nMintAmount, dPercentage);
         // Re-adjust startup time to delay next Automint for 5 minutes
         nStartupTime = GetAdjustedTime();
-    } else {
+    }
+    else {
         LogPrintf("CWallet::AutoZeromint(): Nothing minted because either not enough funds available or the requested denomination size (%d) is not yet reached.\n", nPreferredDenom);
     }
 }
@@ -4092,11 +4093,11 @@ void CWallet::AutoCombineDust()
             if (!out.fSpendable)
                 continue;
             //no coins should get this far if they dont have proper maturity, this is double checking
-            if (chainActive.Height() <= Params().LAST_POW_BLOCK() out.tx->IsCoinStake() && out.tx->GetDepthInMainChain() < Params() COINBASE_MATURITY() + 1)
+            if (chainActive.Height() <= Params().LAST_POW_BLOCK()out.tx->IsCoinStake() && out.tx->GetDepthInMainChain() < Params()COINBASE_MATURITY() + 1)
                 continue;
-            //no coins should get this far if they dont have proper maturity, this is double checking
-            if (chainActive.Height() >= Params().LAST_POW_BLOCK() out.tx->IsCoinStake() && out.tx->GetDepthInMainChain() < Params() POW_MATURITY() + 1)
-                continue;
+			//no coins should get this far if they dont have proper maturity, this is double checking
+			if (chainActive.Height() >= Params().LAST_POW_BLOCK()out.tx->IsCoinStake() && out.tx->GetDepthInMainChain() < Params()POW_MATURITY() + 1)
+				continue;
 
             COutPoint outpt(out.tx->GetHash(), out.i);
             coinControl->Select(outpt);
@@ -4180,6 +4181,7 @@ bool CWallet::MultiSend()
     bool stakeSent = false;
     bool mnSent = false;
     for (const COutput& out : vCoins) {
+
         //need output with precise confirm count - this is how we identify which is the output to send
         if (out.tx->GetDepthInMainChain() != PowPhase + 1)
             continue;
@@ -4372,12 +4374,12 @@ int CMerkleTx::GetDepthInMainChain(const CBlockIndex*& pindexRet, bool enableIX)
 int CMerkleTx::GetBlocksToMaturity() const
 {
     LOCK(cs_main);
-    if (!(IsCoinBase() || IsCoinStake()))
-        return 0;
-    if (chainActive.Height() <= Params().LAST_POW_BLOCK())
-        return max(0, (Params().COINBASE_MATURITY + 1) - GetDepthInMainChain());
-    if (chainActive.Height() >= Params().LAST_POW_BLOCK())
-        return max(0, (Params().POW_MATURITY + 1) - GetDepthInMainChain());
+	if (!(IsCoinBase() || IsCoinStake())) 
+		return 0;
+	if (chainActive.Height() <= Params().LAST_POW_BLOCK()) 
+		return max(0, (Params().COINBASE_MATURITY + 1) - GetDepthInMainChain());
+	if (chainActive.Height() >= Params().LAST_POW_BLOCK())
+		return max(0, (Params().POW_MATURITY + 1) - GetDepthInMainChain());	
 }
 
 
@@ -4440,14 +4442,10 @@ OutputType ParseOutputType(const std::string& type, OutputType default_type)
 const std::string& FormatOutputType(OutputType type)
 {
     switch (type) {
-    case OUTPUT_TYPE_LEGACY:
-        return OUTPUT_TYPE_STRING_LEGACY;
-    case OUTPUT_TYPE_P2SH_SEGWIT:
-        return OUTPUT_TYPE_STRING_P2SH_SEGWIT;
-    case OUTPUT_TYPE_BECH32:
-        return OUTPUT_TYPE_STRING_BECH32;
-    default:
-        assert(false);
+    case OUTPUT_TYPE_LEGACY: return OUTPUT_TYPE_STRING_LEGACY;
+    case OUTPUT_TYPE_P2SH_SEGWIT: return OUTPUT_TYPE_STRING_P2SH_SEGWIT;
+    case OUTPUT_TYPE_BECH32: return OUTPUT_TYPE_STRING_BECH32;
+    default: assert(false);
     }
 }
 
@@ -4471,8 +4469,7 @@ void CWallet::LearnAllRelatedScripts(const CPubKey& key)
 CTxDestination GetDestinationForKey(const CPubKey& key, OutputType type)
 {
     switch (type) {
-    case OUTPUT_TYPE_LEGACY:
-        return key.GetID();
+    case OUTPUT_TYPE_LEGACY: return key.GetID();
     case OUTPUT_TYPE_P2SH_SEGWIT:
     case OUTPUT_TYPE_BECH32: {
         if (!key.IsCompressed()) return key.GetID();
@@ -4484,8 +4481,7 @@ CTxDestination GetDestinationForKey(const CPubKey& key, OutputType type)
             return witdest;
         }
     }
-    default:
-        assert(false);
+    default: assert(false);
     }
 }
 
@@ -4523,8 +4519,7 @@ CTxDestination CWallet::AddAndGetDestinationForScript(const CScript& script, Out
             return CScriptID(witprog);
         }
     }
-    default:
-        assert(false);
+    default: assert(false);
     }
 }
 
@@ -4568,7 +4563,7 @@ bool CWallet::CreateZVPXOutput(libzerocoin::CoinDenomination denomination, CTxOu
     libzerocoin::PublicCoin pubCoin = coin.getPublicCoin();
 
     // Validate
-    if (!pubCoin.validate())
+    if(!pubCoin.validate())
         return error("%s: newly created pubcoin is not valid", __func__);
 
     zwalletMain->UpdateCount();
@@ -4687,7 +4682,7 @@ bool CWallet::MintToTxIn(CZerocoinMint zerocoinSelected, int nSecurityLevel, con
     libzerocoin::CoinDenomination denomination = zerocoinSelected.GetDenomination();
     libzerocoin::PublicCoin pubCoinSelected(paramsCoin, zerocoinSelected.GetValue(), denomination);
     //LogPrintf("%s : selected mint %s\n pubcoinhash=%s\n", __func__, zerocoinSelected.ToString(), GetPubCoinHash(zerocoinSelected.GetValue()).GetHex());
-
+    
     if (!pubCoinSelected.validate()) {
         receipt.SetStatus(_("The selected mint coin is an invalid coin"), ZVPX_INVALID_COIN);
         return false;
@@ -4792,7 +4787,7 @@ bool CWallet::MintToTxIn(CZerocoinMint zerocoinSelected, int nSecurityLevel, con
     return true;
 }
 
-bool CWallet::CreateZerocoinSpendTransaction(CAmount nValue, int nSecurityLevel, CWalletTx& wtxNew, CReserveKey& reserveKey, CZerocoinSpendReceipt& receipt, vector<CZerocoinMint>& vSelectedMints, vector<CDeterministicMint>& vNewMints, bool fMintChange, bool fMinimizeChange, CTxDestination* address)
+bool CWallet::CreateZerocoinSpendTransaction(CAmount nValue, int nSecurityLevel, CWalletTx& wtxNew, CReserveKey& reserveKey, CZerocoinSpendReceipt& receipt, vector<CZerocoinMint>& vSelectedMints, vector<CDeterministicMint>& vNewMints, bool fMintChange,  bool fMinimizeChange, CTxDestination* address)
 {
     // Check available funds
     int nStatus = ZVPX_TRX_FUNDS_PROBLEMS;
@@ -4813,13 +4808,13 @@ bool CWallet::CreateZerocoinSpendTransaction(CAmount nValue, int nSecurityLevel,
     CWalletDB walletdb(pwalletMain->strWalletFile);
     set<CMintMeta> setMints;
     CAmount nValueSelected = 0;
-    int nCoinsReturned = 0;                                             // Number of coins returned in change from function below (for debug)
-    int nNeededSpends = 0;                                              // Number of spends which would be needed if selection failed
+    int nCoinsReturned = 0; // Number of coins returned in change from function below (for debug)
+    int nNeededSpends = 0;  // Number of spends which would be needed if selection failed
     const int nMaxSpends = Params().Zerocoin_MaxSpendsPerTransaction(); // Maximum possible spends for one zVPX transaction
     vector<CMintMeta> vMintsToFetch;
     if (vSelectedMints.empty()) {
         setMints = zvpxTracker->ListMints(true, true, true); // need to find mints to spend
-        if (setMints.empty()) {
+        if(setMints.empty()) {
             receipt.SetStatus(_("Failed to find Zerocoins in wallet.dat"), nStatus);
             return false;
         }
@@ -4828,14 +4823,14 @@ bool CWallet::CreateZerocoinSpendTransaction(CAmount nValue, int nSecurityLevel,
         double dValue = static_cast<double>(nValue) / static_cast<double>(COIN);
         bool fWholeNumber = floor(dValue) == dValue;
         CAmount nValueToSelect = nValue;
-        if (!fWholeNumber)
+        if(!fWholeNumber)
             nValueToSelect = static_cast<CAmount>(ceil(dValue) * COIN);
 
         // Select the zVPX mints to use in this spend
         std::map<libzerocoin::CoinDenomination, CAmount> DenomMap = GetMyZerocoinDistribution();
         list<CMintMeta> listMints(setMints.begin(), setMints.end());
         vMintsToFetch = SelectMintsFromList(nValueToSelect, nValueSelected, nMaxSpends, fMinimizeChange,
-            nCoinsReturned, listMints, DenomMap, nNeededSpends);
+                                             nCoinsReturned, listMints, DenomMap, nNeededSpends);
         for (auto& meta : vMintsToFetch) {
             CZerocoinMint mint;
             if (!GetMint(meta.hashSerial, mint))
@@ -4888,10 +4883,11 @@ bool CWallet::CreateZerocoinSpendTransaction(CAmount nValue, int nSecurityLevel,
         return false;
 
     if (vSelectedMints.empty()) {
-        if (nNeededSpends > 0) {
+        if(nNeededSpends > 0){
             // Too much spends needed, so abuse nStatus to report back the number of needed spends
             receipt.SetStatus(_("Too many spends needed"), nStatus, nNeededSpends);
-        } else {
+        }
+        else {
             receipt.SetStatus(_("Failed to select a zerocoin"), nStatus);
         }
         return false;
@@ -5154,7 +5150,7 @@ string CWallet::GetUniqueWalletBackupName(bool fzvpxAuto) const
     stringstream ssDateTime;
     std::string strWalletBackupName = strprintf("%s", DateTimeStrFormat(".%Y-%m-%d-%H-%M", GetTime()));
     ssDateTime << strWalletBackupName;
-    //ssDateTime << gregorian::to_iso_extended_string(timeLocal.date()) << "-" << timeLocal.time_of_day();
+	//ssDateTime << gregorian::to_iso_extended_string(timeLocal.date()) << "-" << timeLocal.time_of_day();
     return strprintf("wallet%s.dat%s", fzvpxAuto ? "-autozvpxbackup" : "", DateTimeStrFormat(".%Y-%m-%d-%H-%M", GetTime()));
 }
 
@@ -5197,11 +5193,11 @@ void CWallet::ZVpxBackupWallet()
 
     BackupWallet(*this, backupPath.string());
 
-    if (!GetArg("-zvpxbackuppath", "").empty()) {
+    if(!GetArg("-zvpxbackuppath", "").empty()) {
         filesystem::path customPath(GetArg("-zvpxbackuppath", ""));
         filesystem::create_directories(customPath);
 
-        if (!customPath.has_extension()) {
+        if(!customPath.has_extension()) {
             customPath /= GetUniqueWalletBackupName(true);
         }
 
@@ -5215,7 +5211,7 @@ string CWallet::MintZerocoinFromOutPoint(CAmount nValue, CWalletTx& wtxNew, vect
     for (const COutPoint& outpt : vOutpts) {
         coinControl->Select(outpt);
     }
-    if (!coinControl->HasSelected()) {
+    if (!coinControl->HasSelected()){
         string strError = _("Error: No valid utxo!");
         LogPrintf("MintZerocoin() : %s", strError.c_str());
         return strError;
@@ -5351,7 +5347,7 @@ bool CWallet::SpendZerocoin(CAmount nAmount, int nSecurityLevel, CWalletTx& wtxN
         zvpxTracker->Add(dMint, true);
     }
 
-    receipt.SetStatus("Spend Successful", ZVPX_SPEND_OKAY); // When we reach this point spending zVPX was successful
+    receipt.SetStatus("Spend Successful", ZVPX_SPEND_OKAY);  // When we reach this point spending zVPX was successful
 
     return true;
 }
@@ -5433,3 +5429,4 @@ bool CWallet::DatabaseMint(CDeterministicMint& dMint)
     zvpxTracker->Add(dMint, true);
     return true;
 }
+
