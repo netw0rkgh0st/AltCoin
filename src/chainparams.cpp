@@ -212,7 +212,7 @@ public:
     }
 };
 
-int nStakeMaturity(int nHeight) const
+int nStakeMaturity(int nHeight)
 {
     if (nHeight <= Params().LAST_POW_BLOCK()) {
         return Params().POW_MATURITY();
