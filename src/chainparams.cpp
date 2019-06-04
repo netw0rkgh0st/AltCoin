@@ -130,7 +130,7 @@ public:
         nTargetSpacing = 1 * 60; // Privix: 1 minute
         nLastPOWBlock = 200;
         nZerocoinStartHeight = INT_MAX;
-        nPosMaturity = 60;
+        nMaturity = 60;
         nPowMaturity = 1;
         nMasternodeCountDrift = 20;
         nMasternodeCollateralAmt = 1000;
@@ -210,18 +210,7 @@ public:
     {
         return data;
     }
-
-	int nStakeMaturity(int nHeight)
-    {
-        if (nHeight <= Params().LAST_POW_BLOCK()) {
-            return Params().POW_MATURITY();
-        } else if (nHeight >= Params().LAST_POW_BLOCK()) {
-            return Params().POS_MATURITY();
-        }
-    }
 };
-
-
 
 static CMainParams mainParams;
 
@@ -248,8 +237,8 @@ public:
         nTargetTimespan = 1 * 60; // Privix: 1 day
         nTargetSpacing = 1 * 60;  // Privix: 1 minute
         nLastPOWBlock = 200;
-        nPosMaturity = 60;
-        nPowMaturity = 1;
+        nMaturity = 60;
+        //nPowMaturity = 1;
         nMasternodeCountDrift = 4;
         nMasternodeCollateralAmt = 1000;
         nMasternodeCollateralAmtNew = 5000;
@@ -329,8 +318,8 @@ public:
         genesis.nTime = 1559503540;
         genesis.nBits = 504365040;
         genesis.nNonce = 2267756;
-        nPosMaturity = 0;
-        nPowMaturity = 0;
+        nMaturity = 0;
+        //nPowMaturity = 0;
         nLastPOWBlock = 999999999; // PoS complicates Regtest because of timing issues
         nZerocoinLastOldParams = 499;
         nZerocoinStartHeight = 100;

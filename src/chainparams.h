@@ -13,6 +13,7 @@
 #include "primitives/block.h"
 #include "protocol.h"
 #include "uint256.h"
+#include "main.h"
 
 #include "libzerocoin/Params.h"
 #include <vector>
@@ -76,10 +77,8 @@ public:
     int64_t Interval() const { return nTargetTimespan / nTargetSpacing; }
 
 	/** Maturity Related Items */
-    int COINBASE_MATURITY() const { return StakeMaturity; }
+    int COINBASE_MATURITY(int nHeight) const {if (nHeight <= Params().LAST_POW_BLOCK()) return nPowMaturity; else return nMaturity;}
     int StakeMaturity(int nHeight) const { return nStakeMaturity; }
-    int POS_MATURITY() const { return nPosMaturity; }
-    int POW_MATURITY() const { return nPowMaturity; }
 
     CAmount MaxMoneyOut() const { return nMaxMoneyOut; }
     /** The masternode count that we will allow the see-saw reward payments to be off by */
