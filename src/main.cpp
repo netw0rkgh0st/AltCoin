@@ -2475,12 +2475,12 @@ bool CheckTransaction(const CTransaction& tx, bool fZerocoinActive, bool fReject
 
                     // If prev is coinbase, check that it's matured
 					if (coins->IsCoinBase() || coins->IsCoinStake()) {
-						if (chainActive.Height() =< Params().LAST_POW_BLOCK() && nSpendHeight - coins->nHeight < Params().POW_MATURITY)
+						if (chainActive.Height() = < Params().LAST_POW_BLOCK && nSpendHeight - coins->nHeight < Params().POW_MATURITY)
 							return state.Invalid(
 								error("CheckInputs() : tried to spend coinbase at depth %d, coinstake=%d", nSpendHeight - coins->nHeight, coins->IsCoinStake()),
 								REJECT_INVALID, "bad-txns-premature-spend-of-coinbase");
 					}else if (coins->IsCoinBase() || coins->IsCoinStake()) {
-						if (chainActive.Height() > Params().LAST_POW_BLOCK() && nSpendHeight - coins->nHeight < Params().COINBASE_MATURITY) {
+						if (chainActive.Height() > Params().LAST_POW_BLOCK && nSpendHeight - coins->nHeight < Params().COINBASE_MATURITY) {
 							return state.Invalid(
 								error("CheckInputs() : tried to spend coinbase at depth %d, coinstake=%d", nSpendHeight - coins->nHeight, coins->IsCoinStake()),
 								REJECT_INVALID, "bad-txns-premature-spend-of-coinbase");
