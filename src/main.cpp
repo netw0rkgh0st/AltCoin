@@ -2248,11 +2248,11 @@ bool CheckTransaction(const CTransaction& tx, bool fZerocoinActive, bool fReject
         {
             int64_t ret = 0;
 
-            if (nHeight <= 10080) {
+            if (nHeight <= 200 && nHeight > 0) {
                 ret = blockValue * 0;
-            } else if (nHeight > 10080) {
-                ret = blockValue * 0.9; //90% for nodes
-            }
+            } else if (nHeight > 200){
+                ret = blockValue * 0.9;
+			}
 
             return ret;
         }
