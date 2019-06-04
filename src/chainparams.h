@@ -76,9 +76,9 @@ public:
     int64_t Interval() const { return nTargetTimespan / nTargetSpacing; }
 
 	//Maturity Related Items
-    int COINBASE_MATURITY() const
+    int COINBASE_MATURITY(int nHeight) const
     {
-        if (chainActive.Height <= nLastPOWBlock)
+        if (nHeight <= nLastPOWBlock)
 			return nPoWMaturity; 
 		else
 			return nMaturity;
