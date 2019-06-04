@@ -99,15 +99,8 @@ unsigned int nStakeMinAge = 1 * 60 * 60;
 unsigned int StakeMinAgev2()
 {
     if (chainActive.Height() > 192021)
-        return 12 * 60 * 60;
+        return 3 * 60 * 60;
     return nStakeMinAge;
-}
-
-unsigned int PowPhase()
-{
-	if (chainActive.Height() > Params().LAST_POW_BLOCK())
-		return Params().COINBASE_MATURITY();
-	return Params().POW_MATURITY();
 }
 
 int64_t nReserveBalance = 0;
@@ -2475,7 +2468,7 @@ bool CheckTransaction(const CTransaction& tx, bool fZerocoinActive, bool fReject
 
                     // If prev is coinbase, check that it's matured
                     if (coins->IsCoinBase() || coins->IsCoinStake()) {
-                        if (nSpendHeight - coins->nHeight < PowPhase)
+                        if (nSpendHeight - coins->nHeight < Params().COINBASE_MATURITY())
                             return state.Invalid(
                                 error("CheckInputs() : tried to spend coinbase at depth %d, coinstake=%d", nSpendHeight - coins->nHeight, coins->IsCoinStake()),
                                 REJECT_INVALID, "bad-txns-premature-spend-of-coinbase");
