@@ -2216,23 +2216,23 @@ bool CheckTransaction(const CTransaction& tx, bool fZerocoinActive, bool fReject
                 nSubsidy = 7.5 * COIN;
             } else if (nHeight <= 161280 && nHeight > 151200) { // Phase 15
                 nSubsidy = 8 * COIN;
-            } else if (nHeight <= 171360 && nHeight > 161280) { // Phase 16
+            } else if (nHeight <= 171560 && nHeight > 161481) { // Phase 16
                 nSubsidy = 8.5 * COIN;
-            } else if (nHeight <= 181440 && nHeight > 171360) { // Phase 17
+            } else if (nHeight <= 181641 && nHeight > 171560) { // Phase 17
                 nSubsidy = 9 * COIN;
-            } else if (nHeight <= 191520 && nHeight > 181440) { // Phase 18
+            } else if (nHeight <= 191720 && nHeight > 181641) { // Phase 18
                 nSubsidy = 9.5 * COIN;
-            } else if (nHeight <= 201600 && nHeight > 191520) { // Phase 19
+            } else if (nHeight <= 201800 && nHeight > 191720) { // Phase 19
                 nSubsidy = 10 * COIN;
-            } else if (nHeight <= 460800 && nHeight > 201600) { // Phase 20
+            } else if (nHeight <= 461000 && nHeight > 201800) { // Phase 20
                 nSubsidy = 5 * COIN;
-            } else if (nHeight <= 720000 && nHeight > 460800) { // Phase 21
+            } else if (nHeight <= 720200 && nHeight > 461000) { // Phase 21
                 nSubsidy = 4.75 * COIN;
-            } else if (nHeight <= 979200 && nHeight > 720000) { // Phase 22
+            } else if (nHeight <= 979400 && nHeight > 720200) { // Phase 22
                 nSubsidy = 4.5 * COIN;
-            } else if (nHeight <= 1238400 && nHeight > 979200) { // Phase 23
+            } else if (nHeight <= 1238600 && nHeight > 979400) { // Phase 23
                 nSubsidy = 4.25 * COIN;
-            } else if (nHeight > 1238400) { // Phase 24
+            } else if (nHeight > 1238600) { // Phase 24
                 nSubsidy = 4 * COIN;
             }
             // Check if we reached the coin max supply.
