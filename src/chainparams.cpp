@@ -131,7 +131,6 @@ public:
         nLastPOWBlock = 200;
         nZerocoinStartHeight = INT_MAX;
         nMaturity = 60;
-        nPoWMaturity = 1;
         nMasternodeCountDrift = 20;
         nMasternodeCollateralAmt = 1000;
         nMasternodeCollateralAmtNew = 2000;
