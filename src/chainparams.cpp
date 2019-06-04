@@ -210,18 +210,16 @@ public:
     {
         return data;
     }
-
-	int nStakeMaturity(int nHeight)
-    {
-        if (nHeight <= Params().LAST_POW_BLOCK()) {
-            return Params().POW_MATURITY();
-        } else if (nHeight >= Params().LAST_POW_BLOCK()) {
-            return Params().POS_MATURITY();
-        }
-    }
 };
 
-
+int nStakeMaturity(int nHeight)
+{
+    if (nHeight <= Params().LAST_POW_BLOCK()) {
+        return Params().POW_MATURITY();
+    } else if (nHeight >= Params().LAST_POW_BLOCK()) {
+        return Params().POS_MATURITY();
+	}
+}
 
 static CMainParams mainParams;
 
