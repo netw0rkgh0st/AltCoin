@@ -55,7 +55,7 @@ static void convertSeed6(std::vector<CAddress>& vSeedsOut, const SeedSpec6* data
 // + Contains no strange transactions
 static Checkpoints::MapCheckpoints mapCheckpoints =
     boost::assign::map_list_of
-	(0, uint256("0x000006387290c5aeee7566a6a28013c0e9160941933471afcfed8820a81ecfc7"));
+	(0, uint256("0x639bdb3b4c3aa1d444a10fd2930c42d73295931fae7e6503ddf9b0ece3776c2e"));
 static const Checkpoints::CCheckpointData data = {
     &mapCheckpoints,
 	1559773823, // * UNIX timestamp of last checkpoint block
@@ -157,8 +157,8 @@ public:
         hashGenesisBlock = genesis.GetHash();
         //printf("genesis.GetHash = %s\n", genesis.GetHash().ToString().c_str());
         //printf("genesis.hashMerkleRoot = %s\n", genesis.hashMerkleRoot.ToString().c_str());
-        assert(hashGenesisBlock == uint256("0x000006387290c5aeee7566a6a28013c0e9160941933471afcfed8820a81ecfc7"));
-        assert(genesis.hashMerkleRoot == uint256("0x000006387290c5aeee7566a6a28013c0e9160941933471afcfed8820a81ecfc7"));
+        assert(hashGenesisBlock == uint256("0x639bdb3b4c3aa1d444a10fd2930c42d73295931fae7e6503ddf9b0ece3776c2e"));
+        assert(genesis.hashMerkleRoot == uint256("0xb34c94c37f24dde4c53900ff1cf4d4df92dc0fe82c77d465384849b654ef3e31"));
 
         vSeeds.push_back(CDNSSeedData("", ""));
 
@@ -253,7 +253,7 @@ public:
 
 		//printf("genesis.GetHash = %s\n", genesis.GetHash().ToString().c_str());
         hashGenesisBlock = genesis.GetHash();
-        assert(hashGenesisBlock == uint256("0x000006387290c5aeee7566a6a28013c0e9160941933471afcfed8820a81ecfc7"));
+        assert(hashGenesisBlock == uint256("0x639bdb3b4c3aa1d444a10fd2930c42d73295931fae7e6503ddf9b0ece3776c2e"));
 
         vFixedSeeds.clear();
         vSeeds.clear();
@@ -324,7 +324,7 @@ public:
 
         hashGenesisBlock = genesis.GetHash();
         nDefaultPort = 39793;
-        //assert(hashGenesisBlock == uint256("0x000006387290c5aeee7566a6a28013c0e9160941933471afcfed8820a81ecfc7"));
+        //assert(hashGenesisBlock == uint256("0x639bdb3b4c3aa1d444a10fd2930c42d73295931fae7e6503ddf9b0ece3776c2e"));
 
 
         vFixedSeeds.clear(); //! Testnet mode doesn't have any fixed seeds.
