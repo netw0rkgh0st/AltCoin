@@ -104,7 +104,7 @@ unsigned int StakeMinAgev2()
 		return nStakeMinAge;
 }
 
-CAmount COINBASE_MATURITYv2()
+int COINBASE_MATURITYv2()
 {
 	if (chainActive.Height() > 200)		
 		return Params().POW_MATURITY();
