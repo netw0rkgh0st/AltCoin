@@ -2101,8 +2101,12 @@ bool CWallet::SelectStakeCoins(std::set<std::pair<const CWalletTx*, unsigned int
             continue;
 
         //check that it is matured
-        if (out.nDepth < (out.tx->IsCoinStake() ? Params().COINBASE_MATURITYv2() : 10))
-            continue;
+        if (chainActive.Height() <= Params().LAST_POW_BLOCK())
+			if (out.nDepth < (out.tx->IsCoinStake() ? Params().POW_MATURITY() : 10))
+				continue;
+        else if (chainActive.Height() > Params().LAST_POW_BLOCK())
+             if (out.nDepth < (out.tx->IsCoinStake() ? Params().COINBASE_MATURITY() : 10))
+				continue;
 
         //add to our stake set
         setCoins.insert(make_pair(out.tx, out.i));
@@ -4091,8 +4095,12 @@ void CWallet::AutoCombineDust()
             if (!out.fSpendable)
                 continue;
             //no coins should get this far if they dont have proper maturity, this is double checking
-            if (out.tx->IsCoinStake() && out.tx->GetDepthInMainChain() < Params().COINBASE_MATURITYv2() + 1)
-                continue;
+            if (chainActive.Height() <= Params().LAST_POW_BLOCK())
+				if (out.tx->IsCoinStake() && out.tx->GetDepthInMainChain() < Params().POW_MATURITY() + 1)
+					continue;
+            else if (chainActive.Height() > Params().LAST_POW_BLOCK())
+                if (out.tx->IsCoinStake() && out.tx->GetDepthInMainChain() < Params().COINBASE_MATURITY() + 1)
+                    continue;
 
             COutPoint outpt(out.tx->GetHash(), out.i);
             coinControl->Select(outpt);
@@ -4178,8 +4186,12 @@ bool CWallet::MultiSend()
     for (const COutput& out : vCoins) {
 
         //need output with precise confirm count - this is how we identify which is the output to send
-        if (out.tx->GetDepthInMainChain() != Params().COINBASE_MATURITYv2() + 1)
-            continue;
+        if (chainActive.Height() <= Params().LAST_POW_BLOCK())
+			if (out.tx->GetDepthInMainChain() != Params().POW_MATURITY() + 1)
+				continue;
+        else if (chainActive.Height() > Params().LAST_POW_BLOCK())
+            if (out.tx->GetDepthInMainChain() != Params().COINBASE_MATURITY() + 1)
+                continue;
 
         COutPoint outpoint(out.tx->GetHash(), out.i);
         bool sendMSonMNReward = fMultiSendMasternodeReward && outpoint.IsMasternodeReward(out.tx);
@@ -4369,9 +4381,12 @@ int CMerkleTx::GetDepthInMainChain(const CBlockIndex*& pindexRet, bool enableIX)
 int CMerkleTx::GetBlocksToMaturity() const
 {
     LOCK(cs_main);
-    if (!(IsCoinBase() || IsCoinStake()))
+	if (!(IsCoinBase() || IsCoinStake()))
         return 0;
-    return max(0, (Params().COINBASE_MATURITYv2() + 1) - GetDepthInMainChain());
+    if (chainActive.Height() <= Params().LAST_POW_BLOCK())
+		return max(0, (Params().POW_MATURITY() + 1) - GetDepthInMainChain());
+    else 
+		return max(0, (Params().COINBASE_MATURITY() + 1) - GetDepthInMainChain());
 }
 
 
