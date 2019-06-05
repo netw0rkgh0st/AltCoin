@@ -74,6 +74,7 @@ public:
     int64_t TargetTimespan() const { return nTargetTimespan; }
     int64_t TargetSpacing() const { return nTargetSpacing; }
     int64_t Interval() const { return nTargetTimespan / nTargetSpacing; }
+
 	// Maturity Settings
     int COINBASE_MATURITY() const { return nMaturity; }
 	int POW_MATURITY() const { return nPoWMaturity; }
