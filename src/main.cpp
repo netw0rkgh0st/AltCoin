@@ -100,13 +100,14 @@ unsigned int StakeMinAgev2()
 {
     if (chainActive.Height() > 200)
         return 12 * 60 * 60;
-    return nStakeMinAge;
+	else
+		return nStakeMinAge;
 }
 
 int COINBASE_MATURITYv2()
 {
-	if (chainActive.Height() > 200)
-		return Params().COINBASE_MATURITY();
+	if (chainActive.Height() > 200)		
+		return Params().POW_MATURITY();
 	else
 		return Params().COINBASE_MATURITY();
 }
