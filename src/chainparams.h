@@ -74,11 +74,8 @@ public:
     int64_t TargetTimespan() const { return nTargetTimespan; }
     int64_t TargetSpacing() const { return nTargetSpacing; }
     int64_t Interval() const { return nTargetTimespan / nTargetSpacing; }
-	// Maturity Settings
     int COINBASE_MATURITY() const { return nMaturity; }
-	int POW_MATURITY() const { return nPoWMaturity; }
     unsigned int StakeMaturity() const { return nStakeMaturity; }
-
     CAmount MaxMoneyOut() const { return nMaxMoneyOut; }
     /** The masternode count that we will allow the see-saw reward payments to be off by */
     int MasternodeCountDrift() const { return nMasternodeCountDrift; }
@@ -154,7 +151,6 @@ protected:
     int nMasternodeCollateralAmt;
     int nMasternodeCollateralAmtNew;
     int nMaturity;
-	int nPoWMaturity;
     unsigned int nStakeMaturity;
     int nModifierUpdateBlock;
     CAmount nMinStakeInput;
