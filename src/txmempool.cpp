@@ -488,13 +488,14 @@ void CTxMemPool::removeCoinbaseSpends(const CCoinsViewCache* pcoins, unsigned in
             if (it2 != mapTx.end())
                 continue;
             const CCoins* coins = pcoins->AccessCoins(txin.prevout.hash)
-				if ((chainActive.Height() <= Params().LAST_POW_BLOCK()
+
+			if ((chainActive.Height() <= Params().LAST_POW_BLOCK(){
 					if (fSanityCheck) assert(coins);
-						if (!coins || ((coins->IsCoinBase() || coins->IsCoinStake()) && nMemPoolHeight - coins->nHeight < (unsigned)Params().POW_MATURITY())) {
+						if (!coins || ((coins->IsCoinBase() || coins->IsCoinStake()) && nMemPoolHeight - coins->nHeight < (unsigned)Params().POW_MATURITY())) 
 							transactionsToRemove.push_back(tx);
 							break;
-            } else if((chainActive.Height() > Params().LAST_POW_BLOCK())
-					if (!coins || ((coins->IsCoinBase() || coins->IsCoinStake()) && nMemPoolHeight - coins->nHeight < (unsigned)Params().COINBASE_MATURITY())) {
+            } else if((chainActive.Height() > Params().LAST_POW_BLOCK()){
+					if (!coins || ((coins->IsCoinBase() || coins->IsCoinStake()) && nMemPoolHeight - coins->nHeight < (unsigned)Params().COINBASE_MATURITY())) 
 						transactionsToRemove.push_back(tx);
 						break;
 					}
