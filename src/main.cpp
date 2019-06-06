@@ -2187,7 +2187,7 @@ bool CheckTransaction(const CTransaction& tx, bool fZerocoinActive, bool fReject
 			} else if (nHeight <= 500 && nHeight > 0) { // PoW
 				nSubsidy = 0 * COIN;
             } else if (nHeight <= 10080 && nHeight > 500) { // Presale
-                nSubsidy = 0.1 * COIN;
+                nSubsidy = 0.01 * COIN;
             } else if (nHeight <= 20160 && nHeight > 10080) { // Phase 1
                 nSubsidy = 1 * COIN;
             } else if (nHeight <= 30240 && nHeight > 20160) { // Phase 2
