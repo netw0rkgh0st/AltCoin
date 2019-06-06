@@ -489,15 +489,15 @@ void CTxMemPool::removeCoinbaseSpends(const CCoinsViewCache* pcoins, unsigned in
                 continue;
 			const CCoins* coins = pcoins->AccessCoins(txin.prevout.hash);
 		if (fSanityCheck) assert(coins);
-			if (chainActive.Height() <= Params().LAST_POW_BLOCK()){					
+			if ((chainActive.Height() <= Params().LAST_POW_BLOCK(){					
 				fif (!coins || ((coins->IsCoinBase() || coins->IsCoinStake()) && nMemPoolHeight - coins->nHeight < (unsigned)Params().POW_MATURITY())) 
 							transactionsToRemove.push_back(tx);
 							break;
-            } else if(chainActive.Height() > Params().LAST_POW_BLOCK()){
+            } else if((chainActive.Height() > Params().LAST_POW_BLOCK()){
 					if (!coins || ((coins->IsCoinBase() || coins->IsCoinStake()) && nMemPoolHeight - coins->nHeight < (unsigned)Params().COINBASE_MATURITY())) 
 						transactionsToRemove.push_back(tx);
 						break;
-			}
+					}
         }
     }
     BOOST_FOREACH (const CTransaction& tx, transactionsToRemove) {
