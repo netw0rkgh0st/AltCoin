@@ -2468,19 +2468,18 @@ bool CheckTransaction(const CTransaction& tx, bool fZerocoinActive, bool fReject
                     assert(coins);
 
                     // If prev is coinbase, check that it's matured PoS Maturity
-                    if (coins->IsCoinBase() || coins->IsCoinStake()) {
-                        if (nSpendHeight - coins->nHeight < Params().COINBASE_MATURITY())
-                            return state.Invalid(
-                                error("CheckInputs() : tried to spend coinbase at depth %d, coinstake=%d", nSpendHeight - coins->nHeight, coins->IsCoinStake()),
-                                REJECT_INVALID, "bad-txns-premature-spend-of-coinbase");
-                    }
-
-					                    // If prev is coinbase, check that it's matured from PoW Maturity
-                    if (coins->IsCoinBase() || coins->IsCoinStake()) {
-                        if (nSpendHeight - coins->nHeight < Params().POW_MATURITY())
-                            return state.Invalid(
-                                error("CheckInputs() : tried to spend coinbase at depth %d, coinstake=%d", nSpendHeight - coins->nHeight, coins->IsCoinStake()),
-                                REJECT_INVALID, "bad-txns-premature-spend-of-coinbase");
+					if (chainActive.Height() <= Params().LAST_POW_BLOCK()){
+						if (coins->IsCoinBase() || coins->IsCoinStake()) 
+							if (nSpendHeight - coins->nHeight < Params().POW_MATURITY())
+								return state.Invalid(
+									error("CheckInputs() : tried to spend coinbase at depth %d, coinstake=%d", nSpendHeight - coins->nHeight, coins->IsCoinStake()),
+									REJECT_INVALID, "bad-txns-premature-spend-of-coinbase");
+                    }else if (chainActive.Height() > Params().LAST_POW_BLOCK()) {
+							if (coins->IsCoinBase() || coins->IsCoinStake()) 
+								if (nSpendHeight - coins->nHeight < Params().POW_MATURITY())
+									return state.Invalid(
+									error("CheckInputs() : tried to spend coinbase at depth %d, coinstake=%d", nSpendHeight - coins->nHeight, coins->IsCoinStake()),
+									REJECT_INVALID, "bad-txns-premature-spend-of-coinbase");
                     }
 
                     // Check for negative or overflow input values
