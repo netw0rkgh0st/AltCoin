@@ -295,7 +295,7 @@ void BitcoinGUI::createActions(const NetworkStyle* networkStyle)
 
     QIcon overviewIcon;
     overviewIcon.addFile(":/icons/overview",QSize(40,40),QIcon::Normal,QIcon::On);
-    overviewIcon.addFile(":/icons/overview_off",QSize(40,40),QIcon::Normal,QIcon::Off);
+    overviewIcon.addFile(":/icons/overview_off",QSize(40, 40),QIcon::Normal,QIcon::Off);
 
     overviewAction = new QAction(QIcon(":/icons/overview"), tr("&Overview"), this);
     overviewAction->setStatusTip(tr("Show general overview of wallet"));
@@ -591,6 +591,12 @@ void BitcoinGUI::createToolBars()
 		//spacer->setSizePolicy(QSizePolicy::Fixed);
 		toolbar->addWidget(spacer);
 
+
+        QLabel* header = new QLabel();
+        header->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
+        header->setPixmap(QPixmap(":/icons/logo")); 
+        
+        toolbar->addWidget(header);
         toolbar->addAction(overviewAction);
         toolbar->addAction(sendCoinsAction);
         toolbar->addAction(receiveCoinsAction);
@@ -602,7 +608,7 @@ void BitcoinGUI::createToolBars()
         toolbar->addAction(proposalAction);
         toolbar->setMovable(false); // remove unused icon in upper left corner
         toolbar->setOrientation(Qt::Vertical);
-        toolbar->setIconSize(QSize(24,24));
+        toolbar->setIconSize(QSize(240, 60));
         overviewAction->setChecked(true);
 
         /** Create additional container for toolbar and walletFrame and make it the central widget.

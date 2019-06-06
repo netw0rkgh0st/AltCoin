@@ -157,7 +157,7 @@
                       <string>The displayed information may be out of date. Your wallet automatically synchronizes with the Privix network after a connection is established, but this process has not completed yet.</string>
                      </property>
                      <property name="styleSheet">
-                      <string notr="true">QLabel { color: red; }</string>
+                      <string notr="true">QLabel { background-color: #ef516a; color:#fff; padding:3px 10px; }</string>
                      </property>
                      <property name="text">
                       <string notr="true">(out of sync)</string>
@@ -254,19 +254,6 @@
                      </property>
                     </widget>
                    </item>
-                   <item row="2" column="3">
-                    <spacer name="horizontalSpacer_2">
-                     <property name="orientation">
-                      <enum>Qt::Horizontal</enum>
-                     </property>
-                     <property name="sizeHint" stdset="0">
-                      <size>
-                       <width>40</width>
-                       <height>0</height>
-                      </size>
-                     </property>
-                    </spacer>
-                   </item>
                   </layout>
                  </item>
                 </layout>
@@ -289,19 +276,6 @@
                    <property name="verticalSpacing">
                     <number>0</number>
                    </property>
-                   <item row="5" column="3">
-                    <spacer name="horizontalSpacer_9">
-                     <property name="orientation">
-                      <enum>Qt::Horizontal</enum>
-                     </property>
-                     <property name="sizeHint" stdset="0">
-                      <size>
-                       <width>40</width>
-                       <height>20</height>
-                      </size>
-                     </property>
-                    </spacer>
-                   </item>
                    <item row="5" column="1">
                     <widget class="QLabel" name="labelTotal">
                      <property name="font">
@@ -898,6 +872,7 @@
                    <property name="frameShadow">
                     <enum>QFrame::Raised</enum>
                    </property>
+                   <zorder></zorder>
                   </widget>
                  </item>
                 </layout>
@@ -920,7 +895,7 @@
              </property>
              <property name="maximumSize">
               <size>
-               <width>550</width>
+               <width>16777215</width>
                <height>16777215</height>
               </size>
              </property>
@@ -961,7 +936,7 @@
                    <string>The displayed information may be out of date. Your wallet automatically synchronizes with the Privix network after a connection is established, but this process has not completed yet.</string>
                   </property>
                   <property name="styleSheet">
-                   <string notr="true">QLabel { color: red; }</string>
+                   <string notr="true">QLabel { background-color: #ef516a; color:#fff; padding:3px 10px; }</string>
                   </property>
                   <property name="text">
                    <string notr="true">(out of sync)</string>
@@ -1020,7 +995,7 @@
                  </size>
                 </property>
                 <property name="styleSheet">
-                 <string notr="true">background-color: qlineargradient(x1: 0, y1: 0, x2: 1, y2: 0, stop:0 #F0D0A0, stop:1 #F8D488); color:#000000;</string>
+                 <string notr="true"> </string>
                 </property>
                 <property name="text">
                  <string/>
@@ -1040,29 +1015,7 @@
          </item>
         </layout>
        </widget>
-      </item>
-      <item row="2" column="0">
-       <widget class="QLabel" name="exchangeFrame">
-        <property name="minimumSize">
-         <size>
-          <width>0</width>
-          <height>260</height>
-         </size>
-        </property>
-        <property name="maximumSize">
-         <size>
-          <width>16777215</width>
-          <height>260</height>
-         </size>
-        </property>
-        <property name="text">
-         <string/>
-        </property>
-        <property name="alignment">
-         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-        </property>
-       </widget>
-      </item>
+      </item> 
      </layout>
     </widget>
    </item>

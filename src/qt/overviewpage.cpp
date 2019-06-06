@@ -33,8 +33,8 @@
 #include <QSettings>
 #include <QTimer>
 
-#define DECORATION_SIZE 68
-#define ICON_OFFSET 16
+#define DECORATION_SIZE 58
+#define ICON_OFFSET 0
 #define NUM_ITEMS 9
 
 extern CWallet* pwalletMain;
@@ -250,7 +250,7 @@ void OverviewPage::setBalance(const CAmount& balance, const CAmount& unconfirmed
     QSettings settings;
     bool settingShowAllBalances = !settings.value("fHideZeroBalances").toBool();
     bool showSumAvailable = settingShowAllBalances || sumTotalBalance != availableTotalBalance;
-    ui->labelBalanceTextz->setVisible(showSumAvailable);
+    // ui->labelBalanceTextz->setVisible(showSumAvailable);
     bool showVPXAvailable = settingShowAllBalances || vpxAvailableBalance != nTotalBalance;
     bool showWatchOnlyVPXAvailable = watchOnlyBalance != nTotalWatchBalance;
     bool showVPXPending = settingShowAllBalances || unconfirmedBalance != 0;

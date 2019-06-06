@@ -26,7 +26,7 @@ SplashScreen::SplashScreen(Qt::WindowFlags f, const NetworkStyle* networkStyle) 
 {
     // set reference point, paddings
     int paddingLeft = 14;
-    int paddingTop = 470;
+    int paddingTop = 480;
     int titleVersionVSpace = 17;
     // int titleCopyrightVSpace = 32;
 
@@ -51,7 +51,7 @@ SplashScreen::SplashScreen(Qt::WindowFlags f, const NetworkStyle* networkStyle) 
     QPainter pixPaint(&pixmap);
     pixPaint.setRenderHint(QPainter::Antialiasing);
     pixPaint.setRenderHint(QPainter::HighQualityAntialiasing);
-    pixPaint.setPen(QColor(73, 84, 94));
+    pixPaint.setPen(QColor(1, 16, 65));
 
     // check font size and drawing with
     // pixPaint.setFont(QFont(font, 28 * fontFactor));
@@ -120,7 +120,7 @@ static void InitMessage(SplashScreen* splash, const std::string& message)
         Qt::QueuedConnection,
         Q_ARG(QString, QString::fromStdString(message)),
         Q_ARG(int, Qt::AlignBottom | Qt::AlignHCenter),
-        Q_ARG(QColor, QColor(73, 84, 94)));
+        Q_ARG(QColor, QColor(1, 16, 65)));
 }
 
 static void ShowProgress(SplashScreen* splash, const std::string& title, int nProgress)

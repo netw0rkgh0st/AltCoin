@@ -277,7 +277,10 @@ RES_ICONS = \
   qt/res/icons/unit_uprivix.png \
   qt/res/icons/unit_tprivix.png \
   qt/res/icons/unit_tmprivix.png \
-  qt/res/icons/unit_tuprivix.png
+  qt/res/icons/unit_tuprivix.png \
+  qt/res/icons/toolbarbg.png \
+  qt/res/icons/logo.png \
+  qt/res/icons/balancebg.png
 
 BITCOIN_QT_CPP = \
   qt/bantablemodel.cpp \
