@@ -127,15 +127,15 @@ public:
         nMinerThreads = 0;
 
         nTargetTimespan = 1 * 60; // Privix: 1 day
-        nTargetSpacing = 1 * 60; // Privix: 1 minute
-        nLastPOWBlock = 200;
+        nTargetSpacing = 120; // Privix: 1 minute
+        nLastPOWBlock = 500;
         nZerocoinStartHeight = INT_MAX;
         nMaturity = 60;
         nMasternodeCountDrift = 20;
         nMasternodeCollateralAmt = 1000;
         nMasternodeCollateralAmtNew = 2000;
         nMinStakeInput = 5 * COIN;
-        nModifierUpdateBlock = 1238400;
+        nModifierUpdateBlock = 1238600;
         nMaxMoneyOut = 21000000 * COIN;
         const char* pszTimestamp = "Secure The World";
 
@@ -193,7 +193,7 @@ public:
         nStartMasternodePayments = 1559503540;
 
         /** Zerocoin */
-
+		/* This is not active */
         zerocoinModulus = "25195908475657893494027183240048398571429282126204032027777137836043662020707595556264018525880784"
                           "4069182906412495150821892985591491761845028084891200728449926873928072877767359714183472702618963750149718246911"
                           "6507761337985909570009733045974880842840179742910064245869181719511874612151517265463228221686998754918242243363"
