@@ -2214,27 +2214,27 @@ bool CheckTransaction(const CTransaction& tx, bool fZerocoinActive, bool fReject
                 nSubsidy = 6.5 * COIN;
             } else if (nHeight <= 141120 && nHeight > 131040) { // Phase 13
                 nSubsidy = 7 * COIN;
-            } else if (nHeight <= 151200 && nHeight > 141120) { // Phase 14
+            } else if (nHeight <= 151700 && nHeight > 141120) { // Phase 14
                 nSubsidy = 7.5 * COIN;
-            } else if (nHeight <= 161480 && nHeight > 151200) { // Phase 15
+            } else if (nHeight <= 161780 && nHeight > 151700) { // Phase 15
                 nSubsidy = 8 * COIN;
-            } else if (nHeight <= 171560 && nHeight > 161480) { // Phase 16
+            } else if (nHeight <= 171860 && nHeight > 161780) { // Phase 16
                 nSubsidy = 8.5 * COIN;
-            } else if (nHeight <= 181640 && nHeight > 171560) { // Phase 17
+            } else if (nHeight <= 181940 && nHeight > 171860) { // Phase 17
                 nSubsidy = 9 * COIN;
-            } else if (nHeight <= 191720 && nHeight > 181640) { // Phase 18
+            } else if (nHeight <= 192020 && nHeight > 181940) { // Phase 18
                 nSubsidy = 9.5 * COIN;
-            } else if (nHeight <= 201800 && nHeight > 191720) { // Phase 19
+            } else if (nHeight <= 202100 && nHeight > 192020) { // Phase 19
                 nSubsidy = 10 * COIN;
-            } else if (nHeight <= 461000 && nHeight > 201800) { // Phase 20
+            } else if (nHeight <= 461300 && nHeight > 202100) { // Phase 20
                 nSubsidy = 5 * COIN;
-            } else if (nHeight <= 720200 && nHeight > 461000) { // Phase 21
+            } else if (nHeight <= 720500 && nHeight > 461300) { // Phase 21
                 nSubsidy = 4.75 * COIN;
-            } else if (nHeight <= 979400 && nHeight > 720200) { // Phase 22
+            } else if (nHeight <= 979700 && nHeight > 720500) { // Phase 22
                 nSubsidy = 4.5 * COIN;
-            } else if (nHeight <= 1238600 && nHeight > 979400) { // Phase 23
+            } else if (nHeight <= 1238900 && nHeight > 979700) { // Phase 23
                 nSubsidy = 4.25 * COIN;
-            } else if (nHeight > 1238600) { // Phase 24
+            } else if (nHeight > 1238900) { // Phase 24
                 nSubsidy = 4 * COIN;
             }
             // Check if we reached the coin max supply.

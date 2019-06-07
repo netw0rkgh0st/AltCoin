@@ -135,7 +135,7 @@ public:
         nMasternodeCollateralAmt = 1000;
         nMasternodeCollateralAmtNew = 2000;
         nMinStakeInput = 5 * COIN;
-        nModifierUpdateBlock = 1238600;
+        nModifierUpdateBlock = 1238900;
         nMaxMoneyOut = 21000000 * COIN;
         const char* pszTimestamp = "Secure The World";
 
